@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f7f4ef">
+  <meta name="description" content="Збір на генну терапію Elevidys для Дениса Шеленка. Документи клініки та реквізити допомоги.">
+  <title>Допоможімо Денисику — збір на генну терапію</title>
+  <style>
+    :root{
+      --bg:#f7f4ef;
+      --paper:#fffdf9;
+      --card:#ffffff;
+      --text:#22231f;
+      --muted:#6d6e68;
+      --line:#e7e1d8;
+      --accent:#ef6a45;
+      --accent-dark:#d95431;
+      --accent-soft:#fff0e9;
+      --green:#4f7b62;
+      --green-soft:#edf5ef;
+      --shadow:0 22px 70px rgba(74,55,38,.11);
+      --radius-xl:34px;
+      --radius-lg:26px;
+      --radius-md:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 12% 6%,rgba(239,106,69,.08),transparent 27rem),
+        radial-gradient(circle at 92% 18%,rgba(79,123,98,.08),transparent 27rem),
+        var(--bg);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height:1.6;
+    }
+    body.modal-open{overflow:hidden}
+    a{color:inherit}
+    button,input{font:inherit}
+    img{max-width:100%;display:block}
+    .wrap{width:min(1160px,calc(100% - 34px));margin:0 auto}
+
+    .nav{
+      position:sticky;top:0;z-index:50;
+      background:rgba(247,244,239,.82);
+      border-bottom:1px solid rgba(103,91,78,.08);
+      backdrop-filter:blur(18px);
+    }
+    .nav-inner{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{font-size:1.02rem;font-weight:850;letter-spacing:-.025em;text-decoration:none}
+    .nav-actions{display:flex;align-items:center;gap:10px}
+
+    .btn{
+      border:0;cursor:pointer;text-decoration:none;
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      min-height:48px;padding:12px 20px;border-radius:999px;
+      font-weight:800;letter-spacing:-.01em;
+      transition:transform .2s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--accent);color:white;box-shadow:0 14px 30px rgba(239,106,69,.25)}
+    .btn-primary:hover{background:var(--accent-dark)}
+    .btn-light{background:rgba(255,255,255,.82);border:1px solid var(--line);color:var(--text)}
+    .btn-dark{background:#272823;color:#fff}
+    .btn-small{min-height:42px;padding:9px 15px;font-size:.91rem}
+
+    .hero{padding:68px 0 44px}
+    .hero-grid{display:grid;grid-template-columns:1.03fr .97fr;gap:48px;align-items:center}
+    .kicker,.section-kicker{
+      display:inline-flex;align-items:center;gap:8px;
+      color:var(--accent-dark);font-size:.77rem;font-weight:900;text-transform:uppercase;letter-spacing:.13em
+    }
+    .kicker::before,.section-kicker::before{content:"";width:24px;height:2px;border-radius:99px;background:currentColor}
+    h1{margin:18px 0 22px;font-size:clamp(2.8rem,6.4vw,5.7rem);line-height:.92;letter-spacing:-.064em;max-width:790px}
+    .lead{font-size:clamp(1.05rem,1.9vw,1.25rem);line-height:1.65;color:var(--muted);max-width:720px;margin:0 0 28px}
+    .goal-inline{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;margin:26px 0 28px}
+    .goal-number{font-size:clamp(1.75rem,4vw,3.35rem);line-height:1;font-weight:900;letter-spacing:-.045em}
+    .goal-copy{color:var(--muted);font-size:.92rem;line-height:1.45}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:11px}
+    .hero-proof{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:.9rem;margin-top:20px}
+    .hero-proof span::before{content:"✓";margin-right:7px;color:var(--green);font-weight:900}
+
+    .portrait{
+      min-height:600px;border-radius:42px;overflow:hidden;position:relative;
+      background:
+        linear-gradient(180deg,rgba(255,255,255,.0),rgba(35,31,27,.32)),
+        linear-gradient(140deg,#edd6c7 0%,#f4e7dd 48%,#cfdccc 100%);
+      box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,.8);
+    }
+    .portrait-placeholder{position:absolute;inset:0;display:grid;place-items:center;padding:38px;text-align:center;color:#725f52;font-weight:800}
+    .portrait-placeholder strong{display:block;font-size:1.12rem;color:#5f4e43}
+    .portrait-caption{
+      position:absolute;left:22px;right:22px;bottom:22px;
+      padding:18px 20px;border-radius:22px;color:#fff;
+      background:rgba(35,31,27,.45);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.2)
+    }
+    .portrait-caption b{font-size:1.06rem}
+    .portrait-caption span{display:block;color:rgba(255,255,255,.78);font-size:.92rem;margin-top:2px}
+
+    section{padding:52px 0}
+    .section-head{margin-bottom:28px}
+    .section-title{font-size:clamp(2.1rem,4.4vw,3.75rem);line-height:1.02;letter-spacing:-.05em;margin:12px 0 12px;max-width:780px}
+    .section-sub{margin:0;color:var(--muted);max-width:770px;font-size:1.04rem}
+
+    .support-shell{
+      display:grid;grid-template-columns:.9fr 1.1fr;gap:22px;
+      padding:22px;border-radius:var(--radius-xl);background:#252621;color:#fff;box-shadow:var(--shadow)
+    }
+    .support-intro{padding:28px}
+    .support-intro h2{font-size:clamp(2rem,4vw,3.6rem);letter-spacing:-.05em;line-height:1;margin:12px 0 16px}
+    .support-intro p{color:rgba(255,255,255,.7);margin:0 0 26px}
+    .bank-feature{background:#fff;color:var(--text);padding:26px;border-radius:27px;display:flex;flex-direction:column;justify-content:center}
+    .bank-feature .label{color:var(--muted);font-size:.87rem;font-weight:700}
+    .bank-feature h3{font-size:1.55rem;letter-spacing:-.03em;margin:5px 0 6px}
+    .bank-feature p{color:var(--muted);margin:0 0 18px}
+    .quick-methods{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+    .quick-method{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-weight:750;font-size:.88rem}
+
+    .poster{
+      min-height:360px;border-radius:var(--radius-xl);overflow:hidden;position:relative;
+      background:linear-gradient(135deg,#ef6a45,#f3a66f 55%,#f4d9c5);
+      box-shadow:var(--shadow);display:grid;place-items:center;text-align:center;padding:42px;color:white
+    }
+    .poster strong{font-size:clamp(2rem,5vw,4.3rem);line-height:.94;letter-spacing:-.055em;max-width:740px}
+    .poster span{display:block;margin-top:18px;color:rgba(255,255,255,.82)}
+
+    .story-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:start}
+    .story-aside{position:sticky;top:104px}
+    .story-mark{font-size:clamp(4rem,10vw,8rem);line-height:.8;color:var(--accent);font-weight:900;letter-spacing:-.08em}
+    .story-copy{font-size:1.08rem}
+    .story-copy p{margin:0 0 20px;color:#464740}
+    .story-copy p:first-child{font-size:1.28rem;color:var(--text)}
+
+    .treatment-card{
+      display:grid;grid-template-columns:1fr .9fr;gap:30px;
+      border-radius:var(--radius-xl);padding:36px;background:var(--green-soft);border:1px solid #dbe8de
+    }
+    .treatment-card h3{font-size:clamp(2rem,4vw,3.6rem);letter-spacing:-.055em;line-height:1;margin:10px 0 14px}
+    .treatment-card p{color:#506055;margin:0}
+    .price-panel{background:#fff;border-radius:25px;padding:28px;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+    .price-panel .small{color:var(--muted);font-size:.9rem}
+    .price-panel .price{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;letter-spacing:-.045em;line-height:1.05;margin:6px 0}
+    .price-panel .approx{color:var(--muted);margin-bottom:18px}
+
+    .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .video-card{border-radius:24px;overflow:hidden;background:#262722;color:#fff;min-height:260px;position:relative;padding:22px;display:flex;align-items:flex-end;cursor:pointer;border:0;text-align:left}
+    .video-card::before{content:"▶";position:absolute;top:20px;right:20px;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.92);color:#222;font-size:.9rem}
+    .video-card:nth-child(2){background:linear-gradient(145deg,#bd9b83,#634e42)}
+    .video-card:nth-child(3){background:linear-gradient(145deg,#7a927e,#334539)}
+    .video-card b{font-size:1.15rem;line-height:1.2}
+    .video-card span{display:block;color:rgba(255,255,255,.68);font-size:.86rem;margin-top:5px}
+
+    .docs-group{margin-top:28px}
+    .docs-group h3{font-size:1.05rem;margin:0 0 12px}
+    .docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+    .doc-card{
+      border:1px solid var(--line);background:var(--paper);border-radius:23px;min-height:260px;padding:18px;
+      display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;text-align:left;color:inherit;
+      transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease
+    }
+    .doc-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(77,61,44,.08);border-color:#d7cec1}
+    .doc-preview{height:160px;border-radius:16px;background:linear-gradient(145deg,#f1ece4,#ded7cc);display:grid;place-items:center;color:#82776c;font-weight:800;font-size:.84rem;padding:16px;text-align:center}
+    .doc-card b{display:block;margin-top:14px;font-size:.95rem}
+    .doc-card small{color:var(--muted)}
+
+    .verify{
+      margin-top:28px;padding:28px;border-radius:26px;background:#fff;border:1px solid var(--line);
+      display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start
+    }
+    .verify-icon{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:var(--green-soft);color:var(--green);font-weight:900}
+    .verify h3{margin:0 0 6px}.verify p{margin:0;color:var(--muted)}
+
+    .payments-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .pay-card{border-radius:24px;background:#fff;border:1px solid var(--line);padding:24px;min-height:210px;display:flex;flex-direction:column}
+    .pay-card .tag{color:var(--muted);font-size:.81rem;text-transform:uppercase;letter-spacing:.08em;font-weight:850}
+    .pay-card h3{margin:5px 0 14px;font-size:1.35rem}
+    .pay-value{font-size:1.02rem;font-weight:850;word-break:break-word;margin-bottom:16px}
+    .pay-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+
+    .share-box{
+      border-radius:var(--radius-xl);padding:36px;background:var(--accent-soft);border:1px solid #f5d7ca;
+      display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center
+    }
+    .share-box h2{font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.05em;line-height:1;margin:0 0 10px}
+    .share-box p{margin:0;color:#775a4d;max-width:720px}
+    .share-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+
+    .contact-card{border-radius:var(--radius-xl);background:#252621;color:#fff;padding:36px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end}
+    .contact-card h2{font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.05em;line-height:1;margin:8px 0 10px}
+    .contact-card p{color:rgba(255,255,255,.65);margin:0}
+    .contact-links{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+
+    footer{padding:26px 0 100px;color:var(--muted);font-size:.9rem}
+    .footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+    .floating-help{position:fixed;right:18px;bottom:18px;z-index:45}
+    .floating-help .btn{box-shadow:0 16px 38px rgba(239,106,69,.3)}
+
+    .modal-backdrop{
+      position:fixed;inset:0;z-index:100;background:rgba(24,23,20,.50);backdrop-filter:blur(9px);
+      opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease;
+      display:grid;place-items:center;padding:18px
+    }
+    .modal-backdrop.open{opacity:1;visibility:visible}
+    .modal{
+      width:min(680px,100%);max-height:min(84vh,780px);overflow:auto;
+      background:var(--paper);border-radius:30px;padding:26px;box-shadow:0 30px 100px rgba(28,25,20,.28);
+      transform:translateY(24px) scale(.975);opacity:0;
+      transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .24s ease
+    }
+    .modal-backdrop.open .modal{transform:none;opacity:1}
+    .modal-wide{width:min(900px,100%)}
+    .modal-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
+    .modal-head h2{margin:0 0 5px;letter-spacing:-.04em;line-height:1.05}
+    .modal-head p{margin:0;color:var(--muted)}
+    .close{width:42px;height:42px;border-radius:50%;border:0;background:#eee9e1;cursor:pointer;font-size:1.2rem;flex:0 0 auto}
+    .modal-methods{display:grid;gap:10px;margin-top:20px}
+    .modal-method{border:1px solid var(--line);background:#fff;border-radius:18px;padding:16px;display:grid;grid-template-columns:1fr auto;gap:15px;align-items:center}
+    .modal-method small{display:block;color:var(--muted);margin-bottom:2px}
+    .modal-method b{word-break:break-all}
+    .doc-large{margin-top:20px;min-height:440px;border-radius:20px;background:linear-gradient(145deg,#f1ece4,#dcd4c8);display:grid;place-items:center;text-align:center;padding:30px;color:#776d62;font-weight:800}
+
+    .toast{position:fixed;left:50%;bottom:28px;z-index:150;transform:translate(-50%,16px);opacity:0;pointer-events:none;background:#23241f;color:white;border-radius:999px;padding:11px 16px;font-size:.91rem;transition:.22s ease}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .68s ease,transform .68s cubic-bezier(.2,.8,.2,1)}
+    .reveal.visible{opacity:1;transform:none}
+
+    @media (max-width:900px){
+      .hero-grid,.support-shell,.story-grid,.treatment-card{grid-template-columns:1fr}
+      .portrait{min-height:520px}.story-aside{position:static}.story-mark{font-size:5rem}
+      .video-grid,.docs-grid,.payments-grid{grid-template-columns:repeat(2,1fr)}
+      .share-box,.contact-card{grid-template-columns:1fr}.share-actions,.contact-links{justify-content:flex-start}
+    }
+    @media (max-width:620px){
+      .wrap{width:min(100% - 22px,1160px)}
+      .nav-inner{height:66px}.nav-actions .btn-light{display:none}
+      .hero{padding-top:42px}.portrait{min-height:430px;border-radius:30px}
+      h1{font-size:clamp(2.55rem,13vw,4rem)}
+      section{padding:40px 0}
+      .support-shell{padding:12px}.support-intro{padding:20px 14px}.bank-feature{padding:21px}
+      .poster{min-height:300px;padding:28px}.treatment-card,.share-box,.contact-card{padding:26px}
+      .video-grid,.docs-grid,.payments-grid{grid-template-columns:1fr}
+      .video-card{min-height:220px}.doc-card{min-height:230px}.goal-inline{grid-template-columns:1fr;gap:6px}
+      .modal{padding:20px;border-radius:24px}.modal-method{grid-template-columns:1fr}.modal-method .btn{justify-self:start}
+      .floating-help{left:12px;right:12px;bottom:12px}.floating-help .btn{width:100%}
+      footer{padding-bottom:88px}
+    }
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}
+    }
+  
+.reveal{opacity:1;transform:none}
+.hero-proof span{display:inline-flex;align-items:baseline}.hero-proof span::before{flex-shrink:0}
+.fund-label{font-size:.8rem;color:var(--muted);font-weight:800}
+.progress{height:12px;background:#e7e1d8;border-radius:99px;overflow:hidden;margin:12px 0 8px}.progress>span{display:block;height:100%;background:var(--accent);border-radius:inherit}
+.progress-row{display:flex;justify-content:space-between;gap:14px;color:var(--muted);font-size:.85rem;margin-bottom:24px}
+.doc-card{cursor:default;justify-content:flex-start;gap:12px}.doc-card h3{margin:3px 0;font-size:1.02rem}.doc-card small{min-height:48px}.doc-card>.btn{margin-top:auto}.doc-download{color:var(--green);font-size:.88rem}
+.doc-preview{display:block;width:100%;height:auto;border:1px solid var(--line);padding:10px;cursor:zoom-in}.doc-preview img{width:100%;height:290px;object-fit:contain;object-position:top;background:white}.doc-preview span{display:block;padding-top:8px}
+.doc-frame{width:100%;height:65vh;border:0;margin-top:18px;border-radius:15px;background:#eee}
+.pay-card.featured{background:var(--accent-soft)}.payment-heading{height:120px}.payment-heading h3{line-height:1.2}.payment-heading .pay-value{margin:0}.qr-image{width:210px;height:250px;max-width:100%;object-fit:contain;margin:0 auto 20px}.foundation-details{font-size:.86rem;line-height:1.5}.foundation-details .pay-value{font-size:.86rem;margin:0;overflow-wrap:anywhere}.foundation-details p{margin:10px 0}.pay-actions{padding-top:18px}.pay-card details{margin:10px 0 18px}.contact-links{flex-direction:column;align-items:flex-start}
+@media(max-width:620px){.payment-heading{height:auto;min-height:106px}.doc-preview img{height:320px}.progress-row{flex-wrap:wrap}}
+.quick-method{color:var(--text)}</style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">Допомога Денисику</a>
+      <div class="nav-actions">
+        <a class="btn btn-light btn-small" href="#documents">Документи</a>
+        <button class="btn btn-primary btn-small" data-open="helpModal">Підтримати</button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="wrap hero-grid">
+        <div class="reveal">
+          <span class="kicker">Великий збір на лікування</span>
+          <h1>Допоможімо Денисику отримати лікування</h1>
+          <p class="lead">Денису Шеленку сім років. Родина збирає кошти на генну терапію Elevidys для лікування м’язової дистрофії Дюшенна у Fakeeh University Hospital у Дубаї.</p>
+
+          <div class="goal-inline">
+            <div class="goal-number">2 900 000 $</div>
+            <div class="goal-copy">Орієнтовна вартість лікування<br>10 643 000 AED · рахунок від 24.08.2026</div>
+          </div>
+
+          <div class="fund-label" style="margin-top:22px">Прогрес збору · шаблон для заповнення</div><div class="progress" aria-label="Шаблон прогресу збору"><span style="width:36%"></span></div><div class="progress-row"><span>Зібрано: [сума] · [36% — приклад]</span><span>Оновлено: [дата]</span></div><div class="hero-actions">
+            <button class="btn btn-primary" data-open="helpModal">Допомогти Денисику</button>
+            <a class="btn btn-light" href="#documents">Переглянути документи</a>
+          </div>
+          <div class="hero-proof">
+            <span>Офіційний рахунок клініки</span>
+            <span>Медичні документи</span>
+            <span>Реквізити фонду</span>
+          </div>
+        </div>
+
+<div class="portrait reveal">
+
+  <img
+    src="assets/images/main_photo.jpg"
+    alt="Денис Шеленко"
+    style="
+      width:100%;
+      height:100%;
+      position:absolute;
+      inset:0;
+      object-fit:cover;
+      object-position:center;
+    "
+  >
+
+  <div class="portrait-caption">
+    <b>Денис Шеленко · 7 років</b>
+    <span>Разом наближаємо лікування ❤️</span>
+  </div>
+
+</div>
+      </div>
+    </header>
+
+    <section id="help-now">
+      <div class="wrap support-shell reveal">
+        <div class="support-intro">
+          <span class="section-kicker" style="color:#f3a487">Допомогти зараз</span>
+          <h2>Навіть невеликий внесок наближає дитину до лікування.</h2>
+          <p>Підтримайте Денисика через банку Monobank, конверт Приват24 або рахунок благодійного фонду. Дякуємо за кожен внесок.</p>
+          <div class="quick-methods">
+            <span class="quick-method">Monobank</span>
+            <span class="quick-method">PrivatBank</span>
+            <span class="quick-method">Рахунок фонду</span>
+            <span class="quick-method">SWIFT</span>
+          </div>
+        </div>
+        <div class="bank-feature">
+          <div class="label">Основний збір</div>
+          <h3>Банка Monobank</h3>
+          <p>4874 1000 3373 8637</p>
+          <a class="btn btn-primary" href="https://send.monobank.ua/jar/4YFqqqE4c4" target="_blank" rel="noopener noreferrer">Поповнити банку</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="poster reveal">
+          <div><strong>Кожен внесок — підтримка для Денисика</strong><span>Допоможіть наблизити генну терапію. Підтримайте збір або розкажіть про нього іншим.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="story">
+      <div class="wrap story-grid">
+        <aside class="story-aside reveal">
+          <span class="section-kicker">Історія</span>
+          <div class="story-mark">“</div>
+          <h2 class="section-title">Познайомтеся з Денисиком</h2>
+        </aside>
+        <div class="story-copy reveal"><p>Денис народився 10 вересня 2019 року. Зараз йому сім років. Родина просить підтримати збір на його лікування.</p><p>У листі Fakeeh University Hospital від 24 серпня 2026 року підтверджено м’язову дистрофію Дюшенна. На момент оцінки клініка зазначила, що Денис ходить самостійно.</p><p>Після розгляду генетичних звітів та негативного результату аналізу Anti-AAVrh74 лікар Аріф Хан у листі вказав на клінічну придатність Дениса до генної терапії Elevidys.</p><p>Попередня вартість пакета лікування становить близько 2,9 мільйона доларів США. Родина відкрила збір: долучитися можна через банку, конверт або рахунок благодійного фонду.</p></div>
+      </div>
+    </section>
+
+    <section id="treatment">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="section-kicker">Лікування</span>
+          <h2 class="section-title">Для чого потрібен цей збір</h2>
+          <p class="section-sub">Дані за листом та попереднім рахунком Fakeeh University Hospital від 24.08.2026. Остаточне рішення про лікування ухвалює медична команда.</p>
+        </div>
+        <div class="treatment-card reveal">
+          <div>
+            <span class="section-kicker" style="color:var(--green)">Генна терапія Elevidys · Дубай, ОАЕ</span>
+            <h3>Шанс на необхідне лікування</h3>
+            <p>У рахунку зазначені препарат та інфузія, консультації спеціалістів, аналізи до й після терапії, до двох ночей у відділенні інтенсивної терапії та до 24 сеансів фізіотерапії. Мінімальне перебування за умовами клініки — 75 днів; проживання родини передбачено до 88 днів на умовах пакета.</p>
+          </div>
+          <div class="price-panel">
+            <span class="small">Вартість за рахунком клініки</span>
+            <div class="price">2,9 млн $</div>
+            <div class="approx">10 643 000 AED. Вартість і доступність препарату можуть змінюватися. Рахунок не гарантує проведення терапії.</div>
+            <button class="btn btn-dark" data-doc-title="Попередній рахунок клініки" data-doc-file="assets/documents/clinic-invoice.pdf">Переглянути рахунок клініки</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="videos">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="section-kicker">Відео родини</span>
+          <h2 class="section-title">Почуйте історію від самої родини</h2>
+          <p class="section-sub">Відеозвернення родини та слова підтримки будуть додані згодом.</p>
+        </div>
+        <div class="video-grid">
+          <button class="video-card reveal" data-video="Звернення мами"><span><b>Звернення мами</b><span>Додамо посилання на реальне відео</span></span></button>
+          <button class="video-card reveal" data-video="Історія родини"><span><b>Історія родини</b><span>Відеозвернення або сюжет</span></span></button>
+          <button class="video-card reveal" data-video="Підтримка збору"><span><b>Підтримка збору</b><span>Відео друзів, лікарів або громади</span></span></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="documents"><div class="wrap"><div class="section-head"><div><span class="section-kicker">Підтвердження</span><h2 class="section-title">Документи для перевірки</h2></div><p class="section-sub">Ознайомтеся з листом і рахунком клініки, генетичним дослідженням, результатами аналізів та медичним висновком. Усі шість документів доступні без реєстрації й містять водяний знак.</p></div><div class="docs-shell"><div class="docs-grid"><article class="doc-card"><button class="doc-preview" data-doc-title="Лабораторний висновок" data-doc-file="assets/documents/antibody-test.pdf" aria-label="Переглянути: Лабораторний висновок"><img src="assets/images/documents/antibody-test.png" alt="Перша сторінка: Лабораторний висновок" loading="lazy"><span>Збільшити документ ↗</span></button><h3>Лабораторний висновок</h3><small>Результат Anti-AAVrh74: non-reactive.</small><button class="btn btn-light btn-small" data-doc-title="Лабораторний висновок" data-doc-file="assets/documents/antibody-test.pdf">Переглянути PDF</button><a class="doc-download" href="assets/documents/antibody-test.pdf" target="_blank" rel="noopener noreferrer">Відкрити окремо ↗</a></article><article class="doc-card"><button class="doc-preview" data-doc-title="Лист клініки" data-doc-file="assets/documents/eligibility-letter.pdf" aria-label="Переглянути: Лист клініки"><img src="assets/images/documents/eligibility-letter.png" alt="Перша сторінка: Лист клініки" loading="lazy"><span>Збільшити документ ↗</span></button><h3>Лист клініки</h3><small>Оцінка придатності до терапії від 24.08.2026.</small><button class="btn btn-light btn-small" data-doc-title="Лист клініки" data-doc-file="assets/documents/eligibility-letter.pdf">Переглянути PDF</button><a class="doc-download" href="assets/documents/eligibility-letter.pdf" target="_blank" rel="noopener noreferrer">Відкрити окремо ↗</a></article><article class="doc-card"><button class="doc-preview" data-doc-title="Попередній рахунок" data-doc-file="assets/documents/clinic-invoice.pdf" aria-label="Переглянути: Попередній рахунок"><img src="assets/images/documents/clinic-invoice.png" alt="Перша сторінка: Попередній рахунок" loading="lazy"><span>Збільшити документ ↗</span></button><h3>Попередній рахунок</h3><small>Вартість і склад пакета лікування від 24.08.2026.</small><button class="btn btn-light btn-small" data-doc-title="Попередній рахунок" data-doc-file="assets/documents/clinic-invoice.pdf">Переглянути PDF</button><a class="doc-download" href="assets/documents/clinic-invoice.pdf" target="_blank" rel="noopener noreferrer">Відкрити окремо ↗</a></article><article class="doc-card"><button class="doc-preview" data-doc-title="Генетичне дослідження" data-doc-file="assets/documents/genetic-test.pdf" aria-label="Переглянути: Генетичне дослідження"><img src="assets/images/documents/genetic-test.png" alt="Перша сторінка: Генетичне дослідження" loading="lazy"><span>Збільшити документ ↗</span></button><h3>Генетичне дослідження</h3><small>Молекулярно-генетичне дослідження LeoGene від 22.09.2025.</small><button class="btn btn-light btn-small" data-doc-title="Генетичне дослідження" data-doc-file="assets/documents/genetic-test.pdf">Переглянути PDF</button><a class="doc-download" href="assets/documents/genetic-test.pdf" target="_blank" rel="noopener noreferrer">Відкрити окремо ↗</a></article><article class="doc-card"><button class="doc-preview" data-doc-title="Результати аналізів" data-doc-file="assets/documents/blood-tests.pdf" aria-label="Переглянути: Результати аналізів"><img src="assets/images/documents/blood-tests.png" alt="Перша сторінка: Результати аналізів" loading="lazy"><span>Збільшити документ ↗</span></button><h3>Результати аналізів</h3><small>Лабораторні дослідження «Ескулаб» від 18.09.2025.</small><button class="btn btn-light btn-small" data-doc-title="Результати аналізів" data-doc-file="assets/documents/blood-tests.pdf">Переглянути PDF</button><a class="doc-download" href="assets/documents/blood-tests.pdf" target="_blank" rel="noopener noreferrer">Відкрити окремо ↗</a></article><article class="doc-card"><button class="doc-preview" data-doc-title="Медичний висновок" data-doc-file="assets/documents/medical-conclusion.pdf" aria-label="Переглянути: Медичний висновок"><img src="assets/images/documents/medical-conclusion.png" alt="Перша сторінка: Медичний висновок" loading="lazy"><span>Збільшити документ ↗</span></button><h3>Медичний висновок</h3><small>Медичний висновок про дитину з інвалідністю · 2 сторінки.</small><button class="btn btn-light btn-small" data-doc-title="Медичний висновок" data-doc-file="assets/documents/medical-conclusion.pdf">Переглянути PDF</button><a class="doc-download" href="assets/documents/medical-conclusion.pdf" target="_blank" rel="noopener noreferrer">Відкрити окремо ↗</a></article></div></div></div></section>
+
+    <section class="support-section" id="payments"><div class="wrap"><div class="section-head"><div><span class="section-kicker">Підтримати Денисика</span><h2 class="section-title">Оберіть зручний спосіб</h2></div><p class="section-sub">Перейдіть до банки чи конверта або скопіюйте реквізити для переказу. Дякуємо за кожен внесок.</p></div><div class="payments-grid"><article class="pay-card featured"><div class="payment-heading"><span class="tag">Банка на лікування</span><h3>Monobank</h3><div class="pay-value">4874 1000 3373 8637</div></div><img class="qr-image" src="assets/images/monobank-qr.jpg" alt="QR-код банки Monobank" loading="lazy"><div class="pay-actions"><a class="btn btn-dark btn-small" href="https://send.monobank.ua/jar/4YFqqqE4c4" target="_blank" rel="noopener noreferrer">Поповнити банку</a><button class="btn btn-light btn-small" data-copy="4874100033738637">Скопіювати</button></div></article>
+<article class="pay-card"><div class="payment-heading"><span class="tag">Конверт на лікування</span><h3>Приват24</h3><div class="pay-value">5168 7521 6774 3049</div></div><img class="qr-image" src="assets/images/privat-envelope-qr.jpg" alt="QR-код конверта Приват24" loading="lazy"><div class="pay-actions"><a class="btn btn-light btn-small" href="https://www.privat24.ua/send/k3v7q" target="_blank" rel="noopener noreferrer">Поповнити конверт</a><button class="btn btn-light btn-small" data-copy="5168752167743049">Скопіювати</button></div></article>
+<article class="pay-card"><div class="payment-heading"><span class="tag">Благодійний фонд · гривня</span><h3>Переказ на рахунок</h3><div class="pay-value">Благодійний внесок</div></div><img class="qr-image" src="assets/images/foundation-qr.png" alt="QR-код для переказу фонду через Приват24" loading="lazy"><div class="foundation-details"><div class="pay-value">БО «БФ «ВРЯТУЙМО ДЕНИСИКА РАЗОМ»</div><p>ЄДРПОУ 46414577<br>АТ КБ «ПРИВАТБАНК»</p><div class="pay-value">UA393052990000026008045522979</div></div><div class="pay-actions"><button class="btn btn-light btn-small" data-copy="UA393052990000026008045522979">Скопіювати</button></div></article>
+<article class="pay-card" style="grid-column:1/-1"><span class="tag">Міжнародний переказ</span><h3>SWIFT · реквізити фонду</h3><div class="pay-value">БО «БФ «ВРЯТУЙМО ДЕНИСИКА РАЗОМ»<br>IBAN: UA783052990000026002005520166<br>SWIFT: PBANUA2X</div><p>JSC CB PRIVATBANK, 1D HRUSHEVSKOHO STR., KYIV, 01001, UKRAINE</p><details><summary>Повні реквізити та банки-кореспонденти</summary><p>Адреса отримувача: 76000, Україна, Івано-Франківськ, вул. Гната Хоткевича, 75А, корп. 2, кв. 90.</p><p>JP Morgan Chase Bank, New York, USA — рахунок 001-1-000080; SWIFT CHASUS33.<br>The Bank of New York Mellon, New York, USA — рахунок 890-0085-754; SWIFT IRVTUS3N.<br>Citibank N.A., New York, USA — рахунок 36445343; SWIFT CITIUS33.</p></details><div class="pay-actions"><button class="btn btn-light btn-small" data-copy="БО «БФ «ВРЯТУЙМО ДЕНИСИКА РАЗОМ»; IBAN UA783052990000026002005520166; SWIFT PBANUA2X; JSC CB PRIVATBANK">Скопіювати</button></div></article></div></div></section>
+
+    <section id="share">
+      <div class="wrap">
+        <div class="share-box reveal">
+          <div><h2>Не можете допомогти фінансово?</h2><p>Поділіться сторінкою. Один репост може привести людину, яка допоможе закрити важливу частину збору.</p></div>
+          <div class="share-actions">
+            <button class="btn btn-light btn-small" data-share="telegram">Telegram</button>
+            <button class="btn btn-light btn-small" data-share="facebook">Facebook</button>
+            <button class="btn btn-light btn-small" data-share="whatsapp">WhatsApp</button>
+            <button class="btn btn-dark btn-small" data-copy-link>Скопіювати посилання</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact-card reveal">
+          <div><span class="section-kicker" style="color:#f3a487">Зв’язок</span><h2>Контакти родини</h2><p>[Ім’я мами / тата] · додамо перевірені сторінки у соцмережах.</p></div>
+          <div class="contact-links"><span>[номер телефону]</span><span>Instagram: [@профіль]</span><span>Facebook: [посилання]</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner"><span>© Допомога Денисику</span><span>Дякуємо кожному, хто не залишився байдужим.</span></div>
+  </footer>
+
+  <div class="floating-help"><button class="btn btn-primary" data-open="helpModal">Допомогти зараз</button></div>
+
+  <div class="modal-backdrop" id="helpModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+      <div class="modal-head"><div><h2 id="helpTitle">Допомогти Денисику</h2><p>Оберіть зручний спосіб переказу.</p></div><button class="close" data-close aria-label="Закрити">×</button></div>
+<div class="modal-methods"><div class="modal-method"><div><small>Monobank</small><b>4874100033738637</b></div><div><a class="btn btn-primary btn-small" href="https://send.monobank.ua/jar/4YFqqqE4c4" target="_blank" rel="noopener noreferrer">Переказати</a><button class="btn btn-light btn-small" data-copy="4874100033738637">Копіювати</button></div></div><div class="modal-method"><div><small>Приват24</small><b>5168752167743049</b></div><div><a class="btn btn-primary btn-small" href="https://www.privat24.ua/send/k3v7q" target="_blank" rel="noopener noreferrer">Переказати</a><button class="btn btn-light btn-small" data-copy="5168752167743049">Копіювати</button></div></div><div class="modal-method"><div><small>Рахунок фонду · гривня</small><b>UA393052990000026008045522979</b></div><div><button class="btn btn-light btn-small" data-copy="UA393052990000026008045522979">Копіювати</button></div></div><div class="modal-method"><div><small>SWIFT · PBANUA2X</small><b>UA783052990000026002005520166</b></div><div><button class="btn btn-light btn-small" data-copy="UA783052990000026002005520166">Копіювати</button></div></div></div>
+    </div>
+  </div>
+
+<div class="modal-backdrop" id="documentModal" aria-hidden="true"><div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="docTitle"><div class="modal-head"><div><h2 id="docTitle">Документ</h2><a id="docExternal" target="_blank" rel="noopener noreferrer">Відкрити PDF в окремій вкладці ↗</a></div><button class="close" data-close aria-label="Закрити">×</button></div><iframe class="doc-frame" id="docFrame" title="Перегляд документа"></iframe></div></div>
+  <div class="modal-backdrop" id="videoModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="videoTitle">
+      <div class="modal-head"><div><h2 id="videoTitle">Відео</h2><p>Після отримання посилань тут буде вбудований відеоплеєр.</p></div><button class="close" data-close aria-label="Закрити">×</button></div>
+      <div class="doc-large" style="min-height:330px">Місце для відео YouTube / Facebook / Instagram</div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Скопійовано</div>
+
+  <script>
+    const backdrops=[...document.querySelectorAll('.modal-backdrop')];
+    const toast=document.getElementById('toast');
+    const docFrame=document.getElementById('docFrame');
+    let toastTimer; let previousFocus;
+
+    function openModal(id){
+      const el=document.getElementById(id);
+      if(!el)return;
+      previousFocus=document.activeElement;
+      el.classList.add('open');
+      el.querySelector('[data-close]')?.focus();
+      el.setAttribute('aria-hidden','false');
+      document.body.classList.add('modal-open');
+    }
+
+    function closeModal(el){
+      if(!el)return;
+      el.classList.remove('open');
+      previousFocus?.focus();
+      el.setAttribute('aria-hidden','true');
+      if(el.id==='documentModal') docFrame.src='';
+      if(!document.querySelector('.modal-backdrop.open')) document.body.classList.remove('modal-open');
+    }
+
+    document.querySelectorAll('[data-open]').forEach(btn=>btn.addEventListener('click',()=>openModal(btn.dataset.open)));
+    document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>closeModal(btn.closest('.modal-backdrop'))));
+    backdrops.forEach(bg=>bg.addEventListener('click',e=>{if(e.target===bg)closeModal(bg)}));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')backdrops.filter(x=>x.classList.contains('open')).forEach(closeModal)});
+
+    function showToast(text='Скопійовано'){
+      clearTimeout(toastTimer);
+      toast.textContent=text;
+      toast.classList.add('show');
+      toastTimer=setTimeout(()=>toast.classList.remove('show'),1800);
+    }
+
+    async function copyText(text){
+      try{await navigator.clipboard.writeText(text);showToast('Скопійовано')}catch{const field=document.createElement('textarea');field.value=text;field.style.position='fixed';field.style.opacity='0';document.body.append(field);field.select();const ok=document.execCommand('copy');field.remove();showToast(ok?'Скопійовано':'Не вдалося скопіювати')}
+    }
+
+    document.querySelectorAll('[data-copy]').forEach(btn=>btn.addEventListener('click',()=>copyText(btn.dataset.copy)));
+    document.querySelector('[data-copy-link]')?.addEventListener('click',()=>copyText(location.href));
+
+    document.querySelectorAll('[data-doc-file]').forEach(el=>el.addEventListener('click',()=>{
+      document.getElementById('docTitle').textContent=el.dataset.docTitle || 'Документ';
+      docFrame.src=el.dataset.docFile;
+      document.getElementById('docExternal').href=el.dataset.docFile;
+      openModal('documentModal');
+    }));
+
+    document.querySelectorAll('[data-video]').forEach(el=>el.addEventListener('click',()=>{
+      document.getElementById('videoTitle').textContent=el.dataset.video;
+      openModal('videoModal');
+    }));
+
+    document.querySelectorAll('[data-share]').forEach(btn=>btn.addEventListener('click',()=>{
+      const u=encodeURIComponent(location.href);
+      const t=encodeURIComponent('Допоможімо Денисику Шеленку отримати генну терапію Elevidys');
+      const urls={
+        telegram:`https://t.me/share/url?url=${u}&text=${t}`,
+        facebook:`https://www.facebook.com/sharer/sharer.php?u=${u}`,
+        whatsapp:`https://wa.me/?text=${t}%20${u}`
+      };
+      window.open(urls[btn.dataset.share],'_blank','noopener,noreferrer');
+    }));
+
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+      if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}
+    }),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+  </script>
+</body>
+</html>
