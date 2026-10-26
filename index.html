@@ -256,14 +256,20 @@
 .reveal{opacity:1;transform:none}
 .hero-proof span{display:inline-flex;align-items:baseline}.hero-proof span::before{flex-shrink:0}
 .fund-label{font-size:.8rem;color:var(--muted);font-weight:800}
-.progress{height:12px;background:#e7e1d8;border-radius:99px;overflow:hidden;margin:12px 0 8px}.progress>span{display:block;height:100%;background:var(--accent);border-radius:inherit}
-.progress-row{display:flex;justify-content:space-between;gap:14px;color:var(--muted);font-size:.85rem;margin-bottom:24px}
 .doc-card{cursor:default;justify-content:flex-start;gap:12px}.doc-card h3{margin:3px 0;font-size:1.02rem}.doc-card small{min-height:48px}.doc-card>.btn{margin-top:auto}.doc-download{color:var(--green);font-size:.88rem}
 .doc-preview{display:block;width:100%;height:auto;border:1px solid var(--line);padding:10px;cursor:zoom-in}.doc-preview img{width:100%;height:290px;object-fit:contain;object-position:top;background:white}.doc-preview span{display:block;padding-top:8px}
 .doc-frame{width:100%;height:65vh;border:0;margin-top:18px;border-radius:15px;background:#eee}
 .pay-card.featured{background:var(--accent-soft)}.payment-heading{height:120px}.payment-heading h3{line-height:1.2}.payment-heading .pay-value{margin:0}.qr-image{width:210px;height:250px;max-width:100%;object-fit:contain;margin:0 auto 20px}.foundation-details{font-size:.86rem;line-height:1.5}.foundation-details .pay-value{font-size:.86rem;margin:0;overflow-wrap:anywhere}.foundation-details p{margin:10px 0}.pay-actions{padding-top:18px}.pay-card details{margin:10px 0 18px}.contact-links{flex-direction:column;align-items:flex-start}
-@media(max-width:620px){.payment-heading{height:auto;min-height:106px}.doc-preview img{height:320px}.progress-row{flex-wrap:wrap}}
-.quick-method{color:var(--text)}</style>
+@media(max-width:620px){.payment-heading{height:auto;min-height:106px}.doc-preview img{height:320px}}
+.quick-method{color:var(--text)}.quick-method{text-decoration:none;cursor:pointer;transition:background .2s ease}
+.quick-method:hover{background:var(--accent-soft)}
+.quick-method:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+#foundation-payment,#swift-payment,#paypal-payment{scroll-margin-top:100px}
+.pay-value,.modal-method b{overflow-wrap:anywhere}
+.bank-feature{background:linear-gradient(180deg,rgba(20,24,21,0) 42%,rgba(20,24,21,.10) 60%,rgba(20,24,21,.72) 100%),url('sources/family_photo.jpg') center 35%/cover no-repeat;color:#fff;min-height:390px;justify-content:flex-end}
+.bank-feature .label,.bank-feature p{color:#fff;text-shadow:0 1px 5px rgba(0,0,0,.6)}
+.bank-feature h3{text-shadow:0 1px 5px rgba(0,0,0,.6)}
+</style>
 </head>
 <body>
   <nav class="nav">
@@ -289,7 +295,7 @@
             <div class="goal-copy">Орієнтовна вартість лікування<br>10 643 000 AED · рахунок від 24.08.2026</div>
           </div>
 
-          <div class="fund-label" style="margin-top:22px">Прогрес збору · шаблон для заповнення</div><div class="progress" aria-label="Шаблон прогресу збору"><span style="width:36%"></span></div><div class="progress-row"><span>Зібрано: [сума] · [36% — приклад]</span><span>Оновлено: [дата]</span></div><div class="hero-actions">
+          <div class="hero-actions">
             <button class="btn btn-primary" data-open="helpModal">Допомогти Денисику</button>
             <a class="btn btn-light" href="#documents">Переглянути документи</a>
           </div>
@@ -329,12 +335,13 @@
         <div class="support-intro">
           <span class="section-kicker" style="color:#f3a487">Допомогти зараз</span>
           <h2>Навіть невеликий внесок наближає дитину до лікування.</h2>
-          <p>Підтримайте Денисика через банку Monobank, конверт Приват24 або рахунок благодійного фонду. Дякуємо за кожен внесок.</p>
+          <p>Підтримайте Денисика через банку Monobank, конверт Приват24, PayPal або рахунок благодійного фонду. Дякуємо за кожен внесок.</p>
           <div class="quick-methods">
-            <span class="quick-method">Monobank</span>
-            <span class="quick-method">PrivatBank</span>
-            <span class="quick-method">Рахунок фонду</span>
-            <span class="quick-method">SWIFT</span>
+            <a class="quick-method" href="https://send.monobank.ua/jar/4YFqqqE4c4" target="_blank" rel="noopener noreferrer">Monobank</a>
+            <a class="quick-method" href="https://www.privat24.ua/send/k3v7q" target="_blank" rel="noopener noreferrer">Приват24</a>
+            <a class="quick-method" href="#foundation-payment">Рахунок фонду</a>
+            <a class="quick-method" href="#swift-payment">SWIFT</a>
+            <a class="quick-method" href="#paypal-payment">PayPal</a>
           </div>
         </div>
         <div class="bank-feature">
@@ -361,7 +368,7 @@
           <div class="story-mark">“</div>
           <h2 class="section-title">Познайомтеся з Денисиком</h2>
         </aside>
-        <div class="story-copy reveal"><p>Денис народився 10 вересня 2019 року. Зараз йому сім років. Родина просить підтримати збір на його лікування.</p><p>У листі Fakeeh University Hospital від 24 серпня 2026 року підтверджено м’язову дистрофію Дюшенна. На момент оцінки клініка зазначила, що Денис ходить самостійно.</p><p>Після розгляду генетичних звітів та негативного результату аналізу Anti-AAVrh74 лікар Аріф Хан у листі вказав на клінічну придатність Дениса до генної терапії Elevidys.</p><p>Попередня вартість пакета лікування становить близько 2,9 мільйона доларів США. Родина відкрила збір: долучитися можна через банку, конверт або рахунок благодійного фонду.</p></div>
+        <div class="story-copy reveal"><p>Денис народився 10 вересня 2019 року. Зараз йому сім років. Родина просить підтримати збір на його лікування.</p><p>Удома він годинами захоплено грається улюбленими машинками, вигадуючи для них нові цікаві пригоди. Хлопчик щиро обожнює кататися на велосипеді, ловлячи вітерець та насолоджуючись кожною хвилиною руху. Денис завжди з радістю поспішає на дитячий майданчик, адже йому дуже подобається спілкуватися та проводити час з однолітками. На жаль, хвороба суттєво обмежує його фізичні можливості, через що він не може долучатися до всіх ігор нарівні з іншими дітьми.</p></div>
       </div>
     </section>
 
@@ -370,7 +377,7 @@
         <div class="section-head reveal">
           <span class="section-kicker">Лікування</span>
           <h2 class="section-title">Для чого потрібен цей збір</h2>
-          <p class="section-sub">Дані за листом та попереднім рахунком Fakeeh University Hospital від 24.08.2026. Остаточне рішення про лікування ухвалює медична команда.</p>
+          <p class="section-sub">У листі Fakeeh University Hospital від 24 серпня 2026 року підтверджено м’язову дистрофію Дюшенна. На момент оцінки клініка зазначила, що Денис ходить самостійно.</p><p>Після розгляду генетичних звітів та негативного результату аналізу Anti-AAVrh74 лікар Аріф Хан у листі вказав на клінічну придатність Дениса до генної терапії Elevidys.</p><p>Попередня вартість пакета лікування становить близько 2,9 мільйона доларів США. Родина відкрила збір: долучитися можна через банку, конверт або рахунок благодійного фонду.</p><p>Дані за листом та попереднім рахунком Fakeeh University Hospital від 24.08.2026. Остаточне рішення про лікування ухвалює медична команда.</p>
         </div>
         <div class="treatment-card reveal">
           <div>
@@ -381,8 +388,8 @@
           <div class="price-panel">
             <span class="small">Вартість за рахунком клініки</span>
             <div class="price">2,9 млн $</div>
-            <div class="approx">10 643 000 AED. Вартість і доступність препарату можуть змінюватися. Рахунок не гарантує проведення терапії.</div>
-            <button class="btn btn-dark" data-doc-title="Попередній рахунок клініки" data-doc-file="assets/documents/clinic-invoice.pdf">Переглянути рахунок клініки</button>
+            <div class="approx">10 643 000 AED. Вартість і доступність препарату можуть змінюватися.</div>
+            <button class="btn btn-dark" data-doc-title="Попередній рахунок клініки" data-doc-file="assets/documents/clinic-invoice.pdf#page=3">Переглянути рахунок клініки</button>
           </div>
         </div>
       </div>
@@ -407,8 +414,9 @@
 
     <section class="support-section" id="payments"><div class="wrap"><div class="section-head"><div><span class="section-kicker">Підтримати Денисика</span><h2 class="section-title">Оберіть зручний спосіб</h2></div><p class="section-sub">Перейдіть до банки чи конверта або скопіюйте реквізити для переказу. Дякуємо за кожен внесок.</p></div><div class="payments-grid"><article class="pay-card featured"><div class="payment-heading"><span class="tag">Банка на лікування</span><h3>Monobank</h3><div class="pay-value">4874 1000 3373 8637</div></div><img class="qr-image" src="assets/images/monobank-qr.jpg" alt="QR-код банки Monobank" loading="lazy"><div class="pay-actions"><a class="btn btn-dark btn-small" href="https://send.monobank.ua/jar/4YFqqqE4c4" target="_blank" rel="noopener noreferrer">Поповнити банку</a><button class="btn btn-light btn-small" data-copy="4874100033738637">Скопіювати</button></div></article>
 <article class="pay-card"><div class="payment-heading"><span class="tag">Конверт на лікування</span><h3>Приват24</h3><div class="pay-value">5168 7521 6774 3049</div></div><img class="qr-image" src="assets/images/privat-envelope-qr.jpg" alt="QR-код конверта Приват24" loading="lazy"><div class="pay-actions"><a class="btn btn-light btn-small" href="https://www.privat24.ua/send/k3v7q" target="_blank" rel="noopener noreferrer">Поповнити конверт</a><button class="btn btn-light btn-small" data-copy="5168752167743049">Скопіювати</button></div></article>
-<article class="pay-card"><div class="payment-heading"><span class="tag">Благодійний фонд · гривня</span><h3>Переказ на рахунок</h3><div class="pay-value">Благодійний внесок</div></div><img class="qr-image" src="assets/images/foundation-qr.png" alt="QR-код для переказу фонду через Приват24" loading="lazy"><div class="foundation-details"><div class="pay-value">БО «БФ «ВРЯТУЙМО ДЕНИСИКА РАЗОМ»</div><p>ЄДРПОУ 46414577<br>АТ КБ «ПРИВАТБАНК»</p><div class="pay-value">UA393052990000026008045522979</div></div><div class="pay-actions"><button class="btn btn-light btn-small" data-copy="UA393052990000026008045522979">Скопіювати</button></div></article>
-<article class="pay-card" style="grid-column:1/-1"><span class="tag">Міжнародний переказ</span><h3>SWIFT · реквізити фонду</h3><div class="pay-value">БО «БФ «ВРЯТУЙМО ДЕНИСИКА РАЗОМ»<br>IBAN: UA783052990000026002005520166<br>SWIFT: PBANUA2X</div><p>JSC CB PRIVATBANK, 1D HRUSHEVSKOHO STR., KYIV, 01001, UKRAINE</p><details><summary>Повні реквізити та банки-кореспонденти</summary><p>Адреса отримувача: 76000, Україна, Івано-Франківськ, вул. Гната Хоткевича, 75А, корп. 2, кв. 90.</p><p>JP Morgan Chase Bank, New York, USA — рахунок 001-1-000080; SWIFT CHASUS33.<br>The Bank of New York Mellon, New York, USA — рахунок 890-0085-754; SWIFT IRVTUS3N.<br>Citibank N.A., New York, USA — рахунок 36445343; SWIFT CITIUS33.</p></details><div class="pay-actions"><button class="btn btn-light btn-small" data-copy="БО «БФ «ВРЯТУЙМО ДЕНИСИКА РАЗОМ»; IBAN UA783052990000026002005520166; SWIFT PBANUA2X; JSC CB PRIVATBANK">Скопіювати</button></div></article></div></div></section>
+<article class="pay-card" id="foundation-payment"><div class="payment-heading"><span class="tag">Благодійний фонд · гривня</span><h3>Переказ на рахунок</h3><div class="pay-value">Благодійний внесок</div></div><img class="qr-image" src="assets/images/foundation-qr.png" alt="QR-код для переказу фонду через Приват24" loading="lazy"><div class="foundation-details"><div class="pay-value">БО «БФ «ВРЯТУЙМО ДЕНИСИКА РАЗОМ»</div><p>ЄДРПОУ 46414577<br>АТ КБ «ПРИВАТБАНК»</p><div class="pay-value">UA393052990000026008045522979</div></div><div class="pay-actions"><button class="btn btn-light btn-small" data-copy="UA393052990000026008045522979">Скопіювати</button></div></article>
+<article class="pay-card" id="paypal-payment"><div class="payment-heading"><span class="tag">Допомога через PayPal</span><h3>PayPal</h3><div class="pay-value">mariashelenko7@gmail.com</div></div><p>Скопіюйте адресу акаунта та вкажіть її як отримувача переказу в PayPal.</p><div class="pay-actions"><button class="btn btn-dark btn-small" data-copy="mariashelenko7@gmail.com">Скопіювати акаунт</button><a class="btn btn-light btn-small" href="https://www.paypal.com/" target="_blank" rel="noopener noreferrer">Відкрити PayPal</a></div></article>
+<article class="pay-card" id="swift-payment" style="grid-column:1/-1"><span class="tag">Міжнародний переказ</span><h3>SWIFT · реквізити фонду</h3><div class="pay-value">БО «БФ «ВРЯТУЙМО ДЕНИСИКА РАЗОМ»<br>IBAN: UA783052990000026002005520166<br>SWIFT: PBANUA2X</div><p>JSC CB PRIVATBANK, 1D HRUSHEVSKOHO STR., KYIV, 01001, UKRAINE</p><details><summary>Повні реквізити та банки-кореспонденти</summary><p>Адреса отримувача: 76000, Україна, Івано-Франківськ, вул. Гната Хоткевича, 75А, корп. 2, кв. 90.</p><p>JP Morgan Chase Bank, New York, USA — рахунок 001-1-000080; SWIFT CHASUS33.<br>The Bank of New York Mellon, New York, USA — рахунок 890-0085-754; SWIFT IRVTUS3N.<br>Citibank N.A., New York, USA — рахунок 36445343; SWIFT CITIUS33.</p></details><div class="pay-actions"><button class="btn btn-light btn-small" data-copy="БО «БФ «ВРЯТУЙМО ДЕНИСИКА РАЗОМ»; IBAN UA783052990000026002005520166; SWIFT PBANUA2X; JSC CB PRIVATBANK">Скопіювати</button></div></article></div></div></section>
 
     <section id="share">
       <div class="wrap">
@@ -443,7 +451,7 @@
   <div class="modal-backdrop" id="helpModal" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
       <div class="modal-head"><div><h2 id="helpTitle">Допомогти Денисику</h2><p>Оберіть зручний спосіб переказу.</p></div><button class="close" data-close aria-label="Закрити">×</button></div>
-<div class="modal-methods"><div class="modal-method"><div><small>Monobank</small><b>4874100033738637</b></div><div><a class="btn btn-primary btn-small" href="https://send.monobank.ua/jar/4YFqqqE4c4" target="_blank" rel="noopener noreferrer">Переказати</a><button class="btn btn-light btn-small" data-copy="4874100033738637">Копіювати</button></div></div><div class="modal-method"><div><small>Приват24</small><b>5168752167743049</b></div><div><a class="btn btn-primary btn-small" href="https://www.privat24.ua/send/k3v7q" target="_blank" rel="noopener noreferrer">Переказати</a><button class="btn btn-light btn-small" data-copy="5168752167743049">Копіювати</button></div></div><div class="modal-method"><div><small>Рахунок фонду · гривня</small><b>UA393052990000026008045522979</b></div><div><button class="btn btn-light btn-small" data-copy="UA393052990000026008045522979">Копіювати</button></div></div><div class="modal-method"><div><small>SWIFT · PBANUA2X</small><b>UA783052990000026002005520166</b></div><div><button class="btn btn-light btn-small" data-copy="UA783052990000026002005520166">Копіювати</button></div></div></div>
+<div class="modal-methods"><div class="modal-method"><div><small>PayPal · акаунт отримувача</small><b>mariashelenko7@gmail.com</b></div><div><button class="btn btn-light btn-small" data-copy="mariashelenko7@gmail.com">Копіювати</button><a class="btn btn-primary btn-small" href="https://www.paypal.com/" target="_blank" rel="noopener noreferrer">Відкрити PayPal</a></div></div><div class="modal-method"><div><small>Monobank</small><b>4874100033738637</b></div><div><a class="btn btn-primary btn-small" href="https://send.monobank.ua/jar/4YFqqqE4c4" target="_blank" rel="noopener noreferrer">Переказати</a><button class="btn btn-light btn-small" data-copy="4874100033738637">Копіювати</button></div></div><div class="modal-method"><div><small>Приват24</small><b>5168752167743049</b></div><div><a class="btn btn-primary btn-small" href="https://www.privat24.ua/send/k3v7q" target="_blank" rel="noopener noreferrer">Переказати</a><button class="btn btn-light btn-small" data-copy="5168752167743049">Копіювати</button></div></div><div class="modal-method"><div><small>Рахунок фонду · гривня</small><b>UA393052990000026008045522979</b></div><div><button class="btn btn-light btn-small" data-copy="UA393052990000026008045522979">Копіювати</button></div></div><div class="modal-method"><div><small>SWIFT · PBANUA2X</small><b>UA783052990000026002005520166</b></div><div><button class="btn btn-light btn-small" data-copy="UA783052990000026002005520166">Копіювати</button></div></div></div>
     </div>
   </div>
 
