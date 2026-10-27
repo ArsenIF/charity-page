@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#f7f4ef">
   <meta name="description" content="Збір на генну терапію Elevidys для Дениса Шеленка. Документи клініки та реквізити допомоги.">
-  <title>Врятуймо Денисика разом</title>
+  <link rel="alternate" hreflang="uk" href="index.html">
+  <link rel="alternate" hreflang="en" href="index-en.html">
+  <link rel="alternate" hreflang="x-default" href="index.html">
+  <title>Допоможімо Денисику — збір на генну терапію</title>
   <style>
     :root{
       --bg:#f7f4ef;
@@ -51,6 +54,9 @@
     .nav-inner{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}
     .brand{font-size:1.02rem;font-weight:850;letter-spacing:-.025em;text-decoration:none}
     .nav-actions{display:flex;align-items:center;gap:10px}
+    .lang-switch{display:inline-flex;align-items:center;padding:3px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.72)}
+    .lang-switch a{min-width:34px;padding:5px 8px;border-radius:999px;text-align:center;text-decoration:none;font-size:.78rem;font-weight:900;color:var(--muted)}
+    .lang-switch a.active{background:#272823;color:#fff}
 
     .btn{
       border:0;cursor:pointer;text-decoration:none;
@@ -192,6 +198,18 @@
     .contact-card h2{font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.05em;line-height:1;margin:8px 0 10px}
     .contact-card p{color:rgba(255,255,255,.65);margin:0}
     .contact-links{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+    .contact-link{
+      min-width:280px;display:flex;align-items:center;gap:12px;padding:12px 14px;
+      color:#fff;text-decoration:none;background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.14);border-radius:18px;
+      transition:transform .2s ease,background .2s ease,border-color .2s ease
+    }
+    .contact-link:hover{transform:translateY(-2px);background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.28)}
+    .contact-link:focus-visible{outline:3px solid #f3a487;outline-offset:3px}
+    .contact-link .social-mark{width:42px;height:42px;display:grid;place-items:center;flex:0 0 auto;border-radius:13px;background:#fff;color:#252621;font-weight:900}
+    .contact-link .social-copy{display:flex;flex-direction:column;line-height:1.25}
+    .contact-link .social-copy small{margin-top:3px;color:rgba(255,255,255,.62);font-size:.78rem}
+    .contact-link .social-arrow{margin-left:auto;color:#f3a487;font-size:1.1rem}
 
     footer{padding:26px 0 100px;color:var(--muted);font-size:.9rem}
     .footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
@@ -220,6 +238,14 @@
     .modal-methods{display:grid;gap:10px;margin-top:20px}
     .modal-method{border:1px solid var(--line);background:#fff;border-radius:18px;padding:16px;display:grid;grid-template-columns:1fr auto;gap:15px;align-items:center}
     .modal-method small{display:block;color:var(--muted);margin-bottom:2px}
+    .viber-fallback{text-align:center;padding-top:8px}
+    .viber-qr{
+      width:240px;height:240px;max-width:100%;margin:18px auto 12px;padding:12px;
+      border:1px solid var(--line);border-radius:22px;background:#fff
+    }
+    .viber-fallback p{max-width:480px;margin:0 auto;color:var(--muted)}
+    .viber-fallback .pay-actions{justify-content:center;margin-top:20px}
+    .viber-status{min-height:24px;margin-top:8px;font-size:.88rem;color:var(--muted)}
     .modal-method b{word-break:break-all}
     .doc-large{margin-top:20px;min-height:440px;border-radius:20px;background:linear-gradient(145deg,#f1ece4,#dcd4c8);display:grid;place-items:center;text-align:center;padding:30px;color:#776d62;font-weight:800}
 
@@ -259,7 +285,7 @@
 .doc-card{cursor:default;justify-content:flex-start;gap:12px}.doc-card h3{margin:3px 0;font-size:1.02rem}.doc-card small{min-height:48px}.doc-card>.btn{margin-top:auto}.doc-download{color:var(--green);font-size:.88rem}
 .doc-preview{display:block;width:100%;height:auto;border:1px solid var(--line);padding:10px;cursor:zoom-in}.doc-preview img{width:100%;height:290px;object-fit:contain;object-position:top;background:white}.doc-preview span{display:block;padding-top:8px}
 .doc-frame{width:100%;height:65vh;border:0;margin-top:18px;border-radius:15px;background:#eee}
-.pay-card.featured{background:var(--accent-soft)}.payment-heading{height:120px}.payment-heading h3{line-height:1.2}.payment-heading .pay-value{margin:0}.qr-image{width:210px;height:250px;max-width:100%;object-fit:contain;margin:0 auto 20px}.foundation-details{font-size:.86rem;line-height:1.5}.foundation-details .pay-value{font-size:.86rem;margin:0;overflow-wrap:anywhere}.foundation-details p{margin:10px 0}.pay-actions{padding-top:18px}.pay-card details{margin:10px 0 18px}.contact-links{flex-direction:column;align-items:flex-start}
+.pay-card.featured{background:var(--accent-soft)}.payment-heading{height:120px}.payment-heading h3{line-height:1.2}.payment-heading .pay-value{margin:0}.qr-image{width:210px;height:250px;max-width:100%;object-fit:contain;margin:0 auto 20px}.foundation-details{font-size:.86rem;line-height:1.5}.foundation-details .pay-value{font-size:.86rem;margin:0;overflow-wrap:anywhere}.foundation-details p{margin:10px 0}.pay-actions{padding-top:18px}.pay-card details{margin:10px 0 18px}.contact-links{flex-direction:column;align-items:stretch;min-width:min(100%,300px)}
 @media(max-width:620px){.payment-heading{height:auto;min-height:106px}.doc-preview img{height:320px}}
 .quick-method{color:var(--text)}.quick-method{text-decoration:none;cursor:pointer;transition:background .2s ease}
 .quick-method:hover{background:var(--accent-soft)}
@@ -276,6 +302,7 @@
     <div class="wrap nav-inner">
       <a class="brand" href="#top">Допомога Денисику</a>
       <div class="nav-actions">
+        <div class="lang-switch" aria-label="Вибір мови"><a class="active" href="index.html" lang="uk" aria-current="page">UA</a><a href="index-en.html" lang="en">EN</a></div>
         <a class="btn btn-light btn-small" href="#documents">Документи</a>
         <button class="btn btn-primary btn-small" data-open="helpModal">Підтримати</button>
       </div>
@@ -287,7 +314,7 @@
       <div class="wrap hero-grid">
         <div class="reveal">
           <span class="kicker">Великий збір на лікування</span>
-          <h1>Допоможімо Денисику отримати лікування</h1>
+          <h1>Врятуймо Денисика разом</h1>
           <p class="lead">Денису Шеленку сім років. Родина збирає кошти на генну терапію Elevidys для лікування м’язової дистрофії Дюшенна у Fakeeh University Hospital у Дубаї.</p>
 
           <div class="goal-inline">
@@ -377,7 +404,7 @@
         <div class="section-head reveal">
           <span class="section-kicker">Лікування</span>
           <h2 class="section-title">Для чого потрібен цей збір</h2>
-          <p class="section-sub">У листі Fakeeh University Hospital від 24 серпня 2026 року підтверджено м’язову дистрофію Дюшенна. На момент оцінки клініка зазначила, що Денис ходить самостійно.</p><p>Після розгляду генетичних звітів та негативного результату аналізу Anti-AAVrh74 лікар Аріф Хан у листі вказав на клінічну придатність Дениса до генної терапії Elevidys.</p><p>Попередня вартість пакета лікування становить близько 2,9 мільйона доларів США. Родина відкрила збір: долучитися можна через банку, конверт або рахунок благодійного фонду.</p><p>Дані за листом та попереднім рахунком Fakeeh University Hospital від 24.08.2026. Остаточне рішення про лікування ухвалює медична команда.</p>
+          <p class="section-sub">У листі Fakeeh University Hospital від 24 серпня 2026 року підтверджено м’язову дистрофію Дюшенна.</p><p>Після розгляду генетичних звітів та негативного результату аналізу Anti-AAVrh74 лікар Аріф Хан у листі вказав на клінічну придатність Дениса до генної терапії Elevidys.</p><p>Попередня вартість пакета лікування становить близько 2,9 мільйона доларів США. Родина відкрила збір: долучитися можна через банку, конверт або рахунок благодійного фонду.</p><p>Дані за листом та попереднім рахунком Fakeeh University Hospital від 24.08.2026. Остаточне рішення про лікування ухвалює медична команда.</p>
         </div>
         <div class="treatment-card reveal">
           <div>
@@ -413,7 +440,7 @@
     <section id="documents"><div class="wrap"><div class="section-head"><div><span class="section-kicker">Підтвердження</span><h2 class="section-title">Документи для перевірки</h2></div><p class="section-sub">Ознайомтеся з листом і рахунком клініки, генетичним дослідженням, результатами аналізів та медичним висновком. Усі шість документів доступні без реєстрації й містять водяний знак.</p></div><div class="docs-shell"><div class="docs-grid"><article class="doc-card"><button class="doc-preview" data-doc-title="Лабораторний висновок" data-doc-file="assets/documents/antibody-test.pdf" aria-label="Переглянути: Лабораторний висновок"><img src="assets/images/documents/antibody-test.png" alt="Перша сторінка: Лабораторний висновок" loading="lazy"><span>Збільшити документ ↗</span></button><h3>Лабораторний висновок</h3><small>Результат Anti-AAVrh74: non-reactive.</small><button class="btn btn-light btn-small" data-doc-title="Лабораторний висновок" data-doc-file="assets/documents/antibody-test.pdf">Переглянути PDF</button><a class="doc-download" href="assets/documents/antibody-test.pdf" target="_blank" rel="noopener noreferrer">Відкрити окремо ↗</a></article><article class="doc-card"><button class="doc-preview" data-doc-title="Лист клініки" data-doc-file="assets/documents/eligibility-letter.pdf" aria-label="Переглянути: Лист клініки"><img src="assets/images/documents/eligibility-letter.png" alt="Перша сторінка: Лист клініки" loading="lazy"><span>Збільшити документ ↗</span></button><h3>Лист клініки</h3><small>Оцінка придатності до терапії від 24.08.2026.</small><button class="btn btn-light btn-small" data-doc-title="Лист клініки" data-doc-file="assets/documents/eligibility-letter.pdf">Переглянути PDF</button><a class="doc-download" href="assets/documents/eligibility-letter.pdf" target="_blank" rel="noopener noreferrer">Відкрити окремо ↗</a></article><article class="doc-card"><button class="doc-preview" data-doc-title="Попередній рахунок" data-doc-file="assets/documents/clinic-invoice.pdf" aria-label="Переглянути: Попередній рахунок"><img src="assets/images/documents/clinic-invoice.png" alt="Перша сторінка: Попередній рахунок" loading="lazy"><span>Збільшити документ ↗</span></button><h3>Попередній рахунок</h3><small>Вартість і склад пакета лікування від 24.08.2026.</small><button class="btn btn-light btn-small" data-doc-title="Попередній рахунок" data-doc-file="assets/documents/clinic-invoice.pdf">Переглянути PDF</button><a class="doc-download" href="assets/documents/clinic-invoice.pdf" target="_blank" rel="noopener noreferrer">Відкрити окремо ↗</a></article><article class="doc-card"><button class="doc-preview" data-doc-title="Генетичне дослідження" data-doc-file="assets/documents/genetic-test.pdf" aria-label="Переглянути: Генетичне дослідження"><img src="assets/images/documents/genetic-test.png" alt="Перша сторінка: Генетичне дослідження" loading="lazy"><span>Збільшити документ ↗</span></button><h3>Генетичне дослідження</h3><small>Молекулярно-генетичне дослідження LeoGene від 22.09.2025.</small><button class="btn btn-light btn-small" data-doc-title="Генетичне дослідження" data-doc-file="assets/documents/genetic-test.pdf">Переглянути PDF</button><a class="doc-download" href="assets/documents/genetic-test.pdf" target="_blank" rel="noopener noreferrer">Відкрити окремо ↗</a></article><article class="doc-card"><button class="doc-preview" data-doc-title="Результати аналізів" data-doc-file="assets/documents/blood-tests.pdf" aria-label="Переглянути: Результати аналізів"><img src="assets/images/documents/blood-tests.png" alt="Перша сторінка: Результати аналізів" loading="lazy"><span>Збільшити документ ↗</span></button><h3>Результати аналізів</h3><small>Лабораторні дослідження «Ескулаб» від 18.09.2025.</small><button class="btn btn-light btn-small" data-doc-title="Результати аналізів" data-doc-file="assets/documents/blood-tests.pdf">Переглянути PDF</button><a class="doc-download" href="assets/documents/blood-tests.pdf" target="_blank" rel="noopener noreferrer">Відкрити окремо ↗</a></article><article class="doc-card"><button class="doc-preview" data-doc-title="Медичний висновок" data-doc-file="assets/documents/medical-conclusion.pdf" aria-label="Переглянути: Медичний висновок"><img src="assets/images/documents/medical-conclusion.png" alt="Перша сторінка: Медичний висновок" loading="lazy"><span>Збільшити документ ↗</span></button><h3>Медичний висновок</h3><small>Медичний висновок про дитину з інвалідністю · 2 сторінки.</small><button class="btn btn-light btn-small" data-doc-title="Медичний висновок" data-doc-file="assets/documents/medical-conclusion.pdf">Переглянути PDF</button><a class="doc-download" href="assets/documents/medical-conclusion.pdf" target="_blank" rel="noopener noreferrer">Відкрити окремо ↗</a></article></div></div></div></section>
 
     <section class="support-section" id="payments"><div class="wrap"><div class="section-head"><div><span class="section-kicker">Підтримати Денисика</span><h2 class="section-title">Оберіть зручний спосіб</h2></div><p class="section-sub">Перейдіть до банки чи конверта або скопіюйте реквізити для переказу. Дякуємо за кожен внесок.</p></div><div class="payments-grid"><article class="pay-card featured"><div class="payment-heading"><span class="tag">Банка на лікування</span><h3>Monobank</h3><div class="pay-value">4874 1000 3373 8637</div></div><img class="qr-image" src="assets/images/monobank-qr.jpg" alt="QR-код банки Monobank" loading="lazy"><div class="pay-actions"><a class="btn btn-dark btn-small" href="https://send.monobank.ua/jar/4YFqqqE4c4" target="_blank" rel="noopener noreferrer">Поповнити банку</a><button class="btn btn-light btn-small" data-copy="4874100033738637">Скопіювати</button></div></article>
-<article class="pay-card"><div class="payment-heading"><span class="tag">Конверт на лікування</span><h3>Приват24</h3><div class="pay-value">5168 7521 6774 3049</div></div><img class="qr-image" src="assets/images/privat-envelope-qr.jpg" alt="QR-код конверта Приват24" loading="lazy"><div class="pay-actions"><a class="btn btn-light btn-small" href="https://www.privat24.ua/send/k3v7q" target="_blank" rel="noopener noreferrer">Поповнити конверт</a><button class="btn btn-light btn-small" data-copy="5168752167743049">Скопіювати</button></div></article>
+<article class="pay-card"><div class="payment-heading"><span class="tag">Конверт на лікування</span><h3>Приват24</h3><div class="pay-value">5168 7521 6774 3049</div></div><img class="qr-image" src="assets/images/privat-envelope-qr.jpg" alt="QR-код конверта Приват24" loading="lazy"><div class="pay-actions"><a class="btn btn-dark btn-small" href="https://www.privat24.ua/send/k3v7q" target="_blank" rel="noopener noreferrer">Поповнити конверт</a><button class="btn btn-light btn-small" data-copy="5168752167743049">Скопіювати</button></div></article>
 <article class="pay-card" id="foundation-payment"><div class="payment-heading"><span class="tag">Благодійний фонд · гривня</span><h3>Переказ на рахунок</h3><div class="pay-value">Благодійний внесок</div></div><img class="qr-image" src="assets/images/foundation-qr.png" alt="QR-код для переказу фонду через Приват24" loading="lazy"><div class="foundation-details"><div class="pay-value">БО «БФ «ВРЯТУЙМО ДЕНИСИКА РАЗОМ»</div><p>ЄДРПОУ 46414577<br>АТ КБ «ПРИВАТБАНК»</p><div class="pay-value">UA393052990000026008045522979</div></div><div class="pay-actions"><button class="btn btn-light btn-small" data-copy="UA393052990000026008045522979">Скопіювати</button></div></article>
 <article class="pay-card" id="paypal-payment"><div class="payment-heading"><span class="tag">Допомога через PayPal</span><h3>PayPal</h3><div class="pay-value">mariashelenko7@gmail.com</div></div><p>Скопіюйте адресу акаунта та вкажіть її як отримувача переказу в PayPal.</p><div class="pay-actions"><button class="btn btn-dark btn-small" data-copy="mariashelenko7@gmail.com">Скопіювати акаунт</button><a class="btn btn-light btn-small" href="https://www.paypal.com/" target="_blank" rel="noopener noreferrer">Відкрити PayPal</a></div></article>
 <article class="pay-card" id="swift-payment" style="grid-column:1/-1"><span class="tag">Міжнародний переказ</span><h3>SWIFT · реквізити фонду</h3><div class="pay-value">БО «БФ «ВРЯТУЙМО ДЕНИСИКА РАЗОМ»<br>IBAN: UA783052990000026002005520166<br>SWIFT: PBANUA2X</div><p>JSC CB PRIVATBANK, 1D HRUSHEVSKOHO STR., KYIV, 01001, UKRAINE</p><details><summary>Повні реквізити та банки-кореспонденти</summary><p>Адреса отримувача: 76000, Україна, Івано-Франківськ, вул. Гната Хоткевича, 75А, корп. 2, кв. 90.</p><p>JP Morgan Chase Bank, New York, USA — рахунок 001-1-000080; SWIFT CHASUS33.<br>The Bank of New York Mellon, New York, USA — рахунок 890-0085-754; SWIFT IRVTUS3N.<br>Citibank N.A., New York, USA — рахунок 36445343; SWIFT CITIUS33.</p></details><div class="pay-actions"><button class="btn btn-light btn-small" data-copy="БО «БФ «ВРЯТУЙМО ДЕНИСИКА РАЗОМ»; IBAN UA783052990000026002005520166; SWIFT PBANUA2X; JSC CB PRIVATBANK">Скопіювати</button></div></article></div></div></section>
@@ -426,6 +453,7 @@
             <button class="btn btn-light btn-small" data-share="telegram">Telegram</button>
             <button class="btn btn-light btn-small" data-share="facebook">Facebook</button>
             <button class="btn btn-light btn-small" data-share="whatsapp">WhatsApp</button>
+            <button class="btn btn-light btn-small" data-share="viber">Viber</button>
             <button class="btn btn-dark btn-small" data-copy-link>Скопіювати посилання</button>
           </div>
         </div>
@@ -435,8 +463,15 @@
     <section id="contact">
       <div class="wrap">
         <div class="contact-card reveal">
-          <div><span class="section-kicker" style="color:#f3a487">Зв’язок</span><h2>Контакти родини</h2><p>[Ім’я мами / тата] · додамо перевірені сторінки у соцмережах.</p></div>
-          <div class="contact-links"><span>[номер телефону]</span><span>Instagram: [@профіль]</span><span>Facebook: [посилання]</span></div>
+          <div><span class="section-kicker" style="color:#f3a487">Зв’язок</span><h2>Контакти родини</h2><p>Марія Шеленко · мама Денисика. Офіційні сторінки мами у соціальних мережах.</p></div>
+          <div class="contact-links">
+            <a class="contact-link" href="https://www.instagram.com/shelenkomaria?srtk=OW5iN2kxMXBmeGdw" target="_blank" rel="noopener noreferrer" aria-label="Офіційна сторінка Марії Шеленко в Instagram">
+              <span class="social-mark">IG</span><span class="social-copy"><b>Instagram</b><small>@shelenkomaria · офіційна сторінка</small></span><span class="social-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="contact-link" href="https://www.facebook.com/share/1BAibbJGco/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Офіційна сторінка Марії Шеленко у Facebook">
+              <span class="social-mark">f</span><span class="social-copy"><b>Facebook</b><small>Марія Шеленко · офіційна сторінка</small></span><span class="social-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -451,7 +486,7 @@
   <div class="modal-backdrop" id="helpModal" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
       <div class="modal-head"><div><h2 id="helpTitle">Допомогти Денисику</h2><p>Оберіть зручний спосіб переказу.</p></div><button class="close" data-close aria-label="Закрити">×</button></div>
-<div class="modal-methods"><div class="modal-method"><div><small>PayPal · акаунт отримувача</small><b>mariashelenko7@gmail.com</b></div><div><button class="btn btn-light btn-small" data-copy="mariashelenko7@gmail.com">Копіювати</button><a class="btn btn-primary btn-small" href="https://www.paypal.com/" target="_blank" rel="noopener noreferrer">Відкрити PayPal</a></div></div><div class="modal-method"><div><small>Monobank</small><b>4874100033738637</b></div><div><a class="btn btn-primary btn-small" href="https://send.monobank.ua/jar/4YFqqqE4c4" target="_blank" rel="noopener noreferrer">Переказати</a><button class="btn btn-light btn-small" data-copy="4874100033738637">Копіювати</button></div></div><div class="modal-method"><div><small>Приват24</small><b>5168752167743049</b></div><div><a class="btn btn-primary btn-small" href="https://www.privat24.ua/send/k3v7q" target="_blank" rel="noopener noreferrer">Переказати</a><button class="btn btn-light btn-small" data-copy="5168752167743049">Копіювати</button></div></div><div class="modal-method"><div><small>Рахунок фонду · гривня</small><b>UA393052990000026008045522979</b></div><div><button class="btn btn-light btn-small" data-copy="UA393052990000026008045522979">Копіювати</button></div></div><div class="modal-method"><div><small>SWIFT · PBANUA2X</small><b>UA783052990000026002005520166</b></div><div><button class="btn btn-light btn-small" data-copy="UA783052990000026002005520166">Копіювати</button></div></div></div>
+<div class="modal-methods"><div class="modal-method"><div><small>PayPal · акаунт отримувача</small><b>mariashelenko7@gmail.com</b></div><div><a class="btn btn-primary btn-small" href="https://www.paypal.com/" target="_blank" rel="noopener noreferrer">Відкрити PayPal</a><button class="btn btn-light btn-small" data-copy="mariashelenko7@gmail.com">Копіювати</button></div></div><div class="modal-method"><div><small>Monobank</small><b>4874100033738637</b></div><div><a class="btn btn-primary btn-small" href="https://send.monobank.ua/jar/4YFqqqE4c4" target="_blank" rel="noopener noreferrer">Переказати</a><button class="btn btn-light btn-small" data-copy="4874100033738637">Копіювати</button></div></div><div class="modal-method"><div><small>Приват24</small><b>5168752167743049</b></div><div><a class="btn btn-primary btn-small" href="https://www.privat24.ua/send/k3v7q" target="_blank" rel="noopener noreferrer">Переказати</a><button class="btn btn-light btn-small" data-copy="5168752167743049">Копіювати</button></div></div><div class="modal-method"><div><small>Рахунок фонду · гривня</small><b>UA393052990000026008045522979</b></div><div><button class="btn btn-light btn-small" data-copy="UA393052990000026008045522979">Копіювати</button></div></div><div class="modal-method"><div><small>SWIFT · PBANUA2X</small><b>UA783052990000026002005520166</b></div><div><button class="btn btn-light btn-small" data-copy="UA783052990000026002005520166">Копіювати</button></div></div></div>
     </div>
   </div>
 
@@ -463,8 +498,21 @@
     </div>
   </div>
 
+  <div class="modal-backdrop" id="viberModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="viberTitle">
+      <div class="modal-head"><div><h2 id="viberTitle">Поділитися у Viber</h2><p>Viber Desktop не відкрився? Скористайтеся телефоном.</p></div><button class="close" data-close aria-label="Закрити">×</button></div>
+      <div class="viber-fallback">
+        <img class="viber-qr" id="viberQr" alt="QR-код для поширення сторінки у Viber">
+        <p>Відскануйте QR-код камерою телефона — відкриється Viber із підготовленим повідомленням і посиланням на цю сторінку.</p>
+        <div class="viber-status" id="viberStatus" aria-live="polite"></div>
+        <div class="pay-actions"><button class="btn btn-dark btn-small" id="viberCopyLink" data-copy="">Скопіювати посилання</button></div>
+      </div>
+    </div>
+  </div>
+
   <div class="toast" id="toast">Скопійовано</div>
 
+  <script src="assets/vendor/qrcode-generator/qrcode.js"></script>
   <script>
     const backdrops=[...document.querySelectorAll('.modal-backdrop')];
     const toast=document.getElementById('toast');
@@ -521,8 +569,59 @@
       openModal('videoModal');
     }));
 
+    function getSharePageUrl(){
+      const pageUrl=new URL(location.href);
+      pageUrl.hash='';
+      return pageUrl.href;
+    }
+
+    function getViberShareUrl(){
+      const message=`Допоможімо Денисику Шеленку отримати генну терапію Elevidys\n${getSharePageUrl()}`;
+      return `viber://forward?text=${encodeURIComponent(message)}`;
+    }
+
+    function showViberFallback(){
+      const pageUrl=getSharePageUrl();
+      const viberUrl=getViberShareUrl();
+      const qrImage=document.getElementById('viberQr');
+      const status=document.getElementById('viberStatus');
+      document.getElementById('viberCopyLink').dataset.copy=pageUrl;
+
+      try{
+        const qrCode=qrcode(0,'M');
+        qrCode.addData(viberUrl);
+        qrCode.make();
+        qrImage.src=qrCode.createDataURL(7,14);
+        qrImage.hidden=false;
+        status.textContent=location.protocol==='file:'?'Під час локального перегляду QR містить локальну адресу. Після публікації він автоматично міститиме адресу сайту.':'Наведіть камеру телефона на QR-код.';
+      }catch{
+        qrImage.hidden=true;
+        status.textContent='Не вдалося створити QR-код. Скопіюйте посилання кнопкою нижче.';
+      }
+      openModal('viberModal');
+    }
+
+    function shareViaViber(){
+      const viberUrl=getViberShareUrl();
+      const isMobile=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+      if(isMobile){location.href=viberUrl;return}
+
+      let appOpened=false;
+      const onVisibilityChange=()=>{if(document.hidden)appOpened=true};
+      const onWindowBlur=()=>{appOpened=true};
+      document.addEventListener('visibilitychange',onVisibilityChange);
+      window.addEventListener('blur',onWindowBlur,{once:true});
+      location.href=viberUrl;
+      setTimeout(()=>{
+        document.removeEventListener('visibilitychange',onVisibilityChange);
+        window.removeEventListener('blur',onWindowBlur);
+        if(!appOpened && !document.hidden)showViberFallback();
+      },1600);
+    }
+
     document.querySelectorAll('[data-share]').forEach(btn=>btn.addEventListener('click',()=>{
-      const u=encodeURIComponent(location.href);
+      if(btn.dataset.share==='viber'){shareViaViber();return}
+      const u=encodeURIComponent(getSharePageUrl());
       const t=encodeURIComponent('Допоможімо Денисику Шеленку отримати генну терапію Elevidys');
       const urls={
         telegram:`https://t.me/share/url?url=${u}&text=${t}`,

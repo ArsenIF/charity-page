@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f7f4ef">
+  <meta name="description" content="Fundraiser for Elevidys gene therapy for Denys Shelenko. Hospital documents and verified donation details.">
+  <link rel="alternate" hreflang="uk" href="index.html">
+  <link rel="alternate" hreflang="en" href="index-en.html">
+  <link rel="alternate" hreflang="x-default" href="index.html">
+  <title>Help Denys — Fundraiser for Gene Therapy</title>
+  <style>
+    :root{
+      --bg:#f7f4ef;
+      --paper:#fffdf9;
+      --card:#ffffff;
+      --text:#22231f;
+      --muted:#6d6e68;
+      --line:#e7e1d8;
+      --accent:#ef6a45;
+      --accent-dark:#d95431;
+      --accent-soft:#fff0e9;
+      --green:#4f7b62;
+      --green-soft:#edf5ef;
+      --shadow:0 22px 70px rgba(74,55,38,.11);
+      --radius-xl:34px;
+      --radius-lg:26px;
+      --radius-md:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 12% 6%,rgba(239,106,69,.08),transparent 27rem),
+        radial-gradient(circle at 92% 18%,rgba(79,123,98,.08),transparent 27rem),
+        var(--bg);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height:1.6;
+    }
+    body.modal-open{overflow:hidden}
+    a{color:inherit}
+    button,input{font:inherit}
+    img{max-width:100%;display:block}
+    .wrap{width:min(1160px,calc(100% - 34px));margin:0 auto}
+
+    .nav{
+      position:sticky;top:0;z-index:50;
+      background:rgba(247,244,239,.82);
+      border-bottom:1px solid rgba(103,91,78,.08);
+      backdrop-filter:blur(18px);
+    }
+    .nav-inner{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{font-size:1.02rem;font-weight:850;letter-spacing:-.025em;text-decoration:none}
+    .nav-actions{display:flex;align-items:center;gap:10px}
+    .lang-switch{display:inline-flex;align-items:center;padding:3px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.72)}
+    .lang-switch a{min-width:34px;padding:5px 8px;border-radius:999px;text-align:center;text-decoration:none;font-size:.78rem;font-weight:900;color:var(--muted)}
+    .lang-switch a.active{background:#272823;color:#fff}
+
+    .btn{
+      border:0;cursor:pointer;text-decoration:none;
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      min-height:48px;padding:12px 20px;border-radius:999px;
+      font-weight:800;letter-spacing:-.01em;
+      transition:transform .2s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--accent);color:white;box-shadow:0 14px 30px rgba(239,106,69,.25)}
+    .btn-primary:hover{background:var(--accent-dark)}
+    .btn-light{background:rgba(255,255,255,.82);border:1px solid var(--line);color:var(--text)}
+    .btn-dark{background:#272823;color:#fff}
+    .btn-small{min-height:42px;padding:9px 15px;font-size:.91rem}
+
+    .hero{padding:68px 0 44px}
+    .hero-grid{display:grid;grid-template-columns:1.03fr .97fr;gap:48px;align-items:center}
+    .kicker,.section-kicker{
+      display:inline-flex;align-items:center;gap:8px;
+      color:var(--accent-dark);font-size:.77rem;font-weight:900;text-transform:uppercase;letter-spacing:.13em
+    }
+    .kicker::before,.section-kicker::before{content:"";width:24px;height:2px;border-radius:99px;background:currentColor}
+    h1{margin:18px 0 22px;font-size:clamp(2.8rem,6.4vw,5.7rem);line-height:.92;letter-spacing:-.064em;max-width:790px}
+    .lead{font-size:clamp(1.05rem,1.9vw,1.25rem);line-height:1.65;color:var(--muted);max-width:720px;margin:0 0 28px}
+    .goal-inline{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;margin:26px 0 28px}
+    .goal-number{font-size:clamp(1.75rem,4vw,3.35rem);line-height:1;font-weight:900;letter-spacing:-.045em}
+    .goal-copy{color:var(--muted);font-size:.92rem;line-height:1.45}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:11px}
+    .hero-proof{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:.9rem;margin-top:20px}
+    .hero-proof span::before{content:"✓";margin-right:7px;color:var(--green);font-weight:900}
+
+    .portrait{
+      min-height:600px;border-radius:42px;overflow:hidden;position:relative;
+      background:
+        linear-gradient(180deg,rgba(255,255,255,.0),rgba(35,31,27,.32)),
+        linear-gradient(140deg,#edd6c7 0%,#f4e7dd 48%,#cfdccc 100%);
+      box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,.8);
+    }
+    .portrait-placeholder{position:absolute;inset:0;display:grid;place-items:center;padding:38px;text-align:center;color:#725f52;font-weight:800}
+    .portrait-placeholder strong{display:block;font-size:1.12rem;color:#5f4e43}
+    .portrait-caption{
+      position:absolute;left:22px;right:22px;bottom:22px;
+      padding:18px 20px;border-radius:22px;color:#fff;
+      background:rgba(35,31,27,.45);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.2)
+    }
+    .portrait-caption b{font-size:1.06rem}
+    .portrait-caption span{display:block;color:rgba(255,255,255,.78);font-size:.92rem;margin-top:2px}
+
+    section{padding:52px 0}
+    .section-head{margin-bottom:28px}
+    .section-title{font-size:clamp(2.1rem,4.4vw,3.75rem);line-height:1.02;letter-spacing:-.05em;margin:12px 0 12px;max-width:780px}
+    .section-sub{margin:0;color:var(--muted);max-width:770px;font-size:1.04rem}
+
+    .support-shell{
+      display:grid;grid-template-columns:.9fr 1.1fr;gap:22px;
+      padding:22px;border-radius:var(--radius-xl);background:#252621;color:#fff;box-shadow:var(--shadow)
+    }
+    .support-intro{padding:28px}
+    .support-intro h2{font-size:clamp(2rem,4vw,3.6rem);letter-spacing:-.05em;line-height:1;margin:12px 0 16px}
+    .support-intro p{color:rgba(255,255,255,.7);margin:0 0 26px}
+    .bank-feature{background:#fff;color:var(--text);padding:26px;border-radius:27px;display:flex;flex-direction:column;justify-content:center}
+    .bank-feature .label{color:var(--muted);font-size:.87rem;font-weight:700}
+    .bank-feature h3{font-size:1.55rem;letter-spacing:-.03em;margin:5px 0 6px}
+    .bank-feature p{color:var(--muted);margin:0 0 18px}
+    .quick-methods{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+    .quick-method{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-weight:750;font-size:.88rem}
+
+    .poster{
+      min-height:360px;border-radius:var(--radius-xl);overflow:hidden;position:relative;
+      background:linear-gradient(135deg,#ef6a45,#f3a66f 55%,#f4d9c5);
+      box-shadow:var(--shadow);display:grid;place-items:center;text-align:center;padding:42px;color:white
+    }
+    .poster strong{font-size:clamp(2rem,5vw,4.3rem);line-height:.94;letter-spacing:-.055em;max-width:740px}
+    .poster span{display:block;margin-top:18px;color:rgba(255,255,255,.82)}
+
+    .story-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:start}
+    .story-aside{position:sticky;top:104px}
+    .story-mark{font-size:clamp(4rem,10vw,8rem);line-height:.8;color:var(--accent);font-weight:900;letter-spacing:-.08em}
+    .story-copy{font-size:1.08rem}
+    .story-copy p{margin:0 0 20px;color:#464740}
+    .story-copy p:first-child{font-size:1.28rem;color:var(--text)}
+
+    .treatment-card{
+      display:grid;grid-template-columns:1fr .9fr;gap:30px;
+      border-radius:var(--radius-xl);padding:36px;background:var(--green-soft);border:1px solid #dbe8de
+    }
+    .treatment-card h3{font-size:clamp(2rem,4vw,3.6rem);letter-spacing:-.055em;line-height:1;margin:10px 0 14px}
+    .treatment-card p{color:#506055;margin:0}
+    .price-panel{background:#fff;border-radius:25px;padding:28px;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+    .price-panel .small{color:var(--muted);font-size:.9rem}
+    .price-panel .price{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;letter-spacing:-.045em;line-height:1.05;margin:6px 0}
+    .price-panel .approx{color:var(--muted);margin-bottom:18px}
+
+    .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .video-card{border-radius:24px;overflow:hidden;background:#262722;color:#fff;min-height:260px;position:relative;padding:22px;display:flex;align-items:flex-end;cursor:pointer;border:0;text-align:left}
+    .video-card::before{content:"▶";position:absolute;top:20px;right:20px;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.92);color:#222;font-size:.9rem}
+    .video-card:nth-child(2){background:linear-gradient(145deg,#bd9b83,#634e42)}
+    .video-card:nth-child(3){background:linear-gradient(145deg,#7a927e,#334539)}
+    .video-card b{font-size:1.15rem;line-height:1.2}
+    .video-card span{display:block;color:rgba(255,255,255,.68);font-size:.86rem;margin-top:5px}
+
+    .docs-group{margin-top:28px}
+    .docs-group h3{font-size:1.05rem;margin:0 0 12px}
+    .docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+    .doc-card{
+      border:1px solid var(--line);background:var(--paper);border-radius:23px;min-height:260px;padding:18px;
+      display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;text-align:left;color:inherit;
+      transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease
+    }
+    .doc-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(77,61,44,.08);border-color:#d7cec1}
+    .doc-preview{height:160px;border-radius:16px;background:linear-gradient(145deg,#f1ece4,#ded7cc);display:grid;place-items:center;color:#82776c;font-weight:800;font-size:.84rem;padding:16px;text-align:center}
+    .doc-card b{display:block;margin-top:14px;font-size:.95rem}
+    .doc-card small{color:var(--muted)}
+
+    .verify{
+      margin-top:28px;padding:28px;border-radius:26px;background:#fff;border:1px solid var(--line);
+      display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start
+    }
+    .verify-icon{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:var(--green-soft);color:var(--green);font-weight:900}
+    .verify h3{margin:0 0 6px}.verify p{margin:0;color:var(--muted)}
+
+    .payments-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .pay-card{border-radius:24px;background:#fff;border:1px solid var(--line);padding:24px;min-height:210px;display:flex;flex-direction:column}
+    .pay-card .tag{color:var(--muted);font-size:.81rem;text-transform:uppercase;letter-spacing:.08em;font-weight:850}
+    .pay-card h3{margin:5px 0 14px;font-size:1.35rem}
+    .pay-value{font-size:1.02rem;font-weight:850;word-break:break-word;margin-bottom:16px}
+    .pay-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+
+    .share-box{
+      border-radius:var(--radius-xl);padding:36px;background:var(--accent-soft);border:1px solid #f5d7ca;
+      display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center
+    }
+    .share-box h2{font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.05em;line-height:1;margin:0 0 10px}
+    .share-box p{margin:0;color:#775a4d;max-width:720px}
+    .share-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+
+    .contact-card{border-radius:var(--radius-xl);background:#252621;color:#fff;padding:36px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end}
+    .contact-card h2{font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.05em;line-height:1;margin:8px 0 10px}
+    .contact-card p{color:rgba(255,255,255,.65);margin:0}
+    .contact-links{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+    .contact-link{
+      min-width:280px;display:flex;align-items:center;gap:12px;padding:12px 14px;
+      color:#fff;text-decoration:none;background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.14);border-radius:18px;
+      transition:transform .2s ease,background .2s ease,border-color .2s ease
+    }
+    .contact-link:hover{transform:translateY(-2px);background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.28)}
+    .contact-link:focus-visible{outline:3px solid #f3a487;outline-offset:3px}
+    .contact-link .social-mark{width:42px;height:42px;display:grid;place-items:center;flex:0 0 auto;border-radius:13px;background:#fff;color:#252621;font-weight:900}
+    .contact-link .social-copy{display:flex;flex-direction:column;line-height:1.25}
+    .contact-link .social-copy small{margin-top:3px;color:rgba(255,255,255,.62);font-size:.78rem}
+    .contact-link .social-arrow{margin-left:auto;color:#f3a487;font-size:1.1rem}
+
+    footer{padding:26px 0 100px;color:var(--muted);font-size:.9rem}
+    .footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+    .floating-help{position:fixed;right:18px;bottom:18px;z-index:45}
+    .floating-help .btn{box-shadow:0 16px 38px rgba(239,106,69,.3)}
+
+    .modal-backdrop{
+      position:fixed;inset:0;z-index:100;background:rgba(24,23,20,.50);backdrop-filter:blur(9px);
+      opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease;
+      display:grid;place-items:center;padding:18px
+    }
+    .modal-backdrop.open{opacity:1;visibility:visible}
+    .modal{
+      width:min(680px,100%);max-height:min(84vh,780px);overflow:auto;
+      background:var(--paper);border-radius:30px;padding:26px;box-shadow:0 30px 100px rgba(28,25,20,.28);
+      transform:translateY(24px) scale(.975);opacity:0;
+      transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .24s ease
+    }
+    .modal-backdrop.open .modal{transform:none;opacity:1}
+    .modal-wide{width:min(900px,100%)}
+    .modal-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
+    .modal-head h2{margin:0 0 5px;letter-spacing:-.04em;line-height:1.05}
+    .modal-head p{margin:0;color:var(--muted)}
+    .close{width:42px;height:42px;border-radius:50%;border:0;background:#eee9e1;cursor:pointer;font-size:1.2rem;flex:0 0 auto}
+    .modal-methods{display:grid;gap:10px;margin-top:20px}
+    .modal-method{border:1px solid var(--line);background:#fff;border-radius:18px;padding:16px;display:grid;grid-template-columns:1fr auto;gap:15px;align-items:center}
+    .modal-method small{display:block;color:var(--muted);margin-bottom:2px}
+    .viber-fallback{text-align:center;padding-top:8px}
+    .viber-qr{
+      width:240px;height:240px;max-width:100%;margin:18px auto 12px;padding:12px;
+      border:1px solid var(--line);border-radius:22px;background:#fff
+    }
+    .viber-fallback p{max-width:480px;margin:0 auto;color:var(--muted)}
+    .viber-fallback .pay-actions{justify-content:center;margin-top:20px}
+    .viber-status{min-height:24px;margin-top:8px;font-size:.88rem;color:var(--muted)}
+    .modal-method b{word-break:break-all}
+    .doc-large{margin-top:20px;min-height:440px;border-radius:20px;background:linear-gradient(145deg,#f1ece4,#dcd4c8);display:grid;place-items:center;text-align:center;padding:30px;color:#776d62;font-weight:800}
+
+    .toast{position:fixed;left:50%;bottom:28px;z-index:150;transform:translate(-50%,16px);opacity:0;pointer-events:none;background:#23241f;color:white;border-radius:999px;padding:11px 16px;font-size:.91rem;transition:.22s ease}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .68s ease,transform .68s cubic-bezier(.2,.8,.2,1)}
+    .reveal.visible{opacity:1;transform:none}
+
+    @media (max-width:900px){
+      .hero-grid,.support-shell,.story-grid,.treatment-card{grid-template-columns:1fr}
+      .portrait{min-height:520px}.story-aside{position:static}.story-mark{font-size:5rem}
+      .video-grid,.docs-grid,.payments-grid{grid-template-columns:repeat(2,1fr)}
+      .share-box,.contact-card{grid-template-columns:1fr}.share-actions,.contact-links{justify-content:flex-start}
+    }
+    @media (max-width:620px){
+      .wrap{width:min(100% - 22px,1160px)}
+      .nav-inner{height:66px}.nav-actions .btn-light{display:none}
+      .hero{padding-top:42px}.portrait{min-height:430px;border-radius:30px}
+      h1{font-size:clamp(2.55rem,13vw,4rem)}
+      section{padding:40px 0}
+      .support-shell{padding:12px}.support-intro{padding:20px 14px}.bank-feature{padding:21px}
+      .poster{min-height:300px;padding:28px}.treatment-card,.share-box,.contact-card{padding:26px}
+      .video-grid,.docs-grid,.payments-grid{grid-template-columns:1fr}
+      .video-card{min-height:220px}.doc-card{min-height:230px}.goal-inline{grid-template-columns:1fr;gap:6px}
+      .modal{padding:20px;border-radius:24px}.modal-method{grid-template-columns:1fr}.modal-method .btn{justify-self:start}
+      .floating-help{left:12px;right:12px;bottom:12px}.floating-help .btn{width:100%}
+      footer{padding-bottom:88px}
+    }
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}
+    }
+  
+.reveal{opacity:1;transform:none}
+.hero-proof span{display:inline-flex;align-items:baseline}.hero-proof span::before{flex-shrink:0}
+.fund-label{font-size:.8rem;color:var(--muted);font-weight:800}
+.doc-card{cursor:default;justify-content:flex-start;gap:12px}.doc-card h3{margin:3px 0;font-size:1.02rem}.doc-card small{min-height:48px}.doc-card>.btn{margin-top:auto}.doc-download{color:var(--green);font-size:.88rem}
+.doc-preview{display:block;width:100%;height:auto;border:1px solid var(--line);padding:10px;cursor:zoom-in}.doc-preview img{width:100%;height:290px;object-fit:contain;object-position:top;background:white}.doc-preview span{display:block;padding-top:8px}
+.doc-frame{width:100%;height:65vh;border:0;margin-top:18px;border-radius:15px;background:#eee}
+.pay-card.featured{background:var(--accent-soft)}.payment-heading{height:120px}.payment-heading h3{line-height:1.2}.payment-heading .pay-value{margin:0}.qr-image{width:210px;height:250px;max-width:100%;object-fit:contain;margin:0 auto 20px}.foundation-details{font-size:.86rem;line-height:1.5}.foundation-details .pay-value{font-size:.86rem;margin:0;overflow-wrap:anywhere}.foundation-details p{margin:10px 0}.pay-actions{padding-top:18px}.pay-card details{margin:10px 0 18px}.contact-links{flex-direction:column;align-items:stretch;min-width:min(100%,300px)}
+@media(max-width:620px){.payment-heading{height:auto;min-height:106px}.doc-preview img{height:320px}}
+.quick-method{color:var(--text)}.quick-method{text-decoration:none;cursor:pointer;transition:background .2s ease}
+.quick-method:hover{background:var(--accent-soft)}
+.quick-method:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+#foundation-payment,#swift-payment,#paypal-payment{scroll-margin-top:100px}
+.pay-value,.modal-method b{overflow-wrap:anywhere}
+.bank-feature{background:linear-gradient(180deg,rgba(20,24,21,0) 42%,rgba(20,24,21,.10) 60%,rgba(20,24,21,.72) 100%),url('assets/images/family_photo.jpg') center 35%/cover no-repeat;color:#fff;min-height:390px;justify-content:flex-end}
+.bank-feature .label,.bank-feature p{color:#fff;text-shadow:0 1px 5px rgba(0,0,0,.6)}
+.bank-feature h3{text-shadow:0 1px 5px rgba(0,0,0,.6)}
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">Help Denys</a>
+      <div class="nav-actions">
+        <div class="lang-switch" aria-label="Language selection"><a href="index.html" lang="uk">UA</a><a class="active" href="index-en.html" lang="en" aria-current="page">EN</a></div>
+        <a class="btn btn-light btn-small" href="#documents">Documents</a>
+        <button class="btn btn-primary btn-small" data-open="helpModal">Donate</button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="wrap hero-grid">
+        <div class="reveal">
+          <span class="kicker">Major medical fundraiser</span>
+          <h1>Let’s save Denys together</h1>
+          <p class="lead">Denys Shelenko is seven years old. His family is raising funds for Elevidys gene therapy to treat Duchenne muscular dystrophy at Fakeeh University Hospital in Dubai.</p>
+
+          <div class="goal-inline">
+            <div class="goal-number">2 900 000 $</div>
+            <div class="goal-copy">Estimated treatment cost<br>AED 10,643,000 · invoice dated 24 Aug 2026</div>
+          </div>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary" data-open="helpModal">Help Denys</button>
+            <a class="btn btn-light" href="#documents">View documents</a>
+          </div>
+          <div class="hero-proof">
+            <span>Official hospital invoice</span>
+            <span>Medical documents</span>
+            <span>Charity foundation details</span>
+          </div>
+        </div>
+
+<div class="portrait reveal">
+
+  <img
+    src="assets/images/main_photo.jpg"
+    alt="Denys Shelenko"
+    style="
+      width:100%;
+      height:100%;
+      position:absolute;
+      inset:0;
+      object-fit:cover;
+      object-position:center;
+    "
+  >
+
+  <div class="portrait-caption">
+    <b>Denys Shelenko · 7 years old</b>
+    <span>Together, we can bring his treatment closer ❤️</span>
+  </div>
+
+</div>
+      </div>
+    </header>
+
+    <section id="help-now">
+      <div class="wrap support-shell reveal">
+        <div class="support-intro">
+          <span class="section-kicker" style="color:#f3a487">Donate now</span>
+          <h2>Even a small contribution brings Denys closer to treatment.</h2>
+          <p>Support Denys through Monobank, Privat24, PayPal, or the charity foundation’s bank account. Every contribution matters.</p>
+          <div class="quick-methods">
+            <a class="quick-method" href="https://send.monobank.ua/jar/4YFqqqE4c4" target="_blank" rel="noopener noreferrer">Monobank</a>
+            <a class="quick-method" href="https://www.privat24.ua/send/k3v7q" target="_blank" rel="noopener noreferrer">Privat24</a>
+            <a class="quick-method" href="#foundation-payment">Foundation account</a>
+            <a class="quick-method" href="#swift-payment">SWIFT</a>
+            <a class="quick-method" href="#paypal-payment">PayPal</a>
+          </div>
+        </div>
+        <div class="bank-feature">
+          <div class="label">Main fundraiser</div>
+          <h3>Monobank fundraising jar</h3>
+          <p>4874 1000 3373 8637</p>
+          <a class="btn btn-primary" href="https://send.monobank.ua/jar/4YFqqqE4c4" target="_blank" rel="noopener noreferrer">Donate via Monobank</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="poster reveal">
+          <div><strong>Every contribution supports Denys</strong><span>Help bring gene therapy closer. Donate or share his story with others.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="story">
+      <div class="wrap story-grid">
+        <aside class="story-aside reveal">
+          <span class="section-kicker">His story</span>
+          <div class="story-mark">“</div>
+          <h2 class="section-title">Meet Denys</h2>
+        </aside>
+        <div class="story-copy reveal"><p>Denys was born on 10 September 2019. He is now seven years old, and his family is asking for support with the cost of his treatment.</p><p>At home, he can spend hours playing with his favourite toy cars and inventing new adventures for them. He loves riding his bicycle, feeling the breeze, and enjoying every moment of movement. Denys is always excited to go to the playground because he enjoys spending time and socialising with other children. Sadly, his condition significantly limits his physical abilities, preventing him from joining every game on equal terms with his peers.</p></div>
+      </div>
+    </section>
+
+    <section id="treatment">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="section-kicker">Treatment</span>
+          <h2 class="section-title">Why this fundraiser is needed</h2>
+          <p class="section-sub">A letter from Fakeeh University Hospital dated 24 August 2026 confirms Denys’s diagnosis of Duchenne muscular dystrophy.</p><p>After reviewing the genetic reports and the negative Anti-AAVrh74 test result, Dr Arif Khan stated that Denys was clinically eligible for Elevidys gene therapy.</p><p>The preliminary cost of the treatment package is approximately USD 2.9 million. The family has launched this fundraiser, and donations can be made through Monobank, Privat24, PayPal, or the charity foundation’s account.</p><p>This information is based on the letter and preliminary invoice issued by Fakeeh University Hospital on 24 August 2026. The final treatment decision rests with the medical team.</p>
+        </div>
+        <div class="treatment-card reveal">
+          <div>
+            <span class="section-kicker" style="color:var(--green)">Elevidys gene therapy · Dubai, UAE</span>
+            <h3>A chance to receive the treatment he needs</h3>
+            <p>The invoice includes the medicine and infusion, specialist consultations, pre- and post-treatment tests, up to two nights in intensive care, and up to 24 physiotherapy sessions. The hospital requires a minimum stay of 75 days, while the package includes family accommodation for up to 88 days.</p>
+          </div>
+          <div class="price-panel">
+            <span class="small">Cost stated in the hospital invoice</span>
+            <div class="price">$2.9 million</div>
+            <div class="approx">AED 10,643,000. The price and availability of the medicine may change.</div>
+            <button class="btn btn-dark" data-doc-title="Preliminary hospital invoice" data-doc-file="assets/documents/clinic-invoice.pdf#page=3">View hospital invoice</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="videos">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="section-kicker">Family videos</span>
+          <h2 class="section-title">Hear the story from Denys’s family</h2>
+          <p class="section-sub">Messages from the family and supporters will be added soon.</p>
+        </div>
+        <div class="video-grid">
+          <button class="video-card reveal" data-video="A message from Denys’s mother"><span><b>A message from Denys’s mother</b><span>A link to the video will be added soon</span></span></button>
+          <button class="video-card reveal" data-video="The family’s story"><span><b>The family’s story</b><span>A family message or news feature</span></span></button>
+          <button class="video-card reveal" data-video="Supporting the fundraiser"><span><b>Supporting the fundraiser</b><span>Messages from friends, doctors, and the community</span></span></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="documents"><div class="wrap"><div class="section-head"><div><span class="section-kicker">Verification</span><h2 class="section-title">Documents for review</h2></div><p class="section-sub">Review the hospital letter and invoice, genetic report, laboratory results, and medical assessment. All six documents are available without registration and contain a watermark.</p></div><div class="docs-shell"><div class="docs-grid"><article class="doc-card"><button class="doc-preview" data-doc-title="Laboratory report" data-doc-file="assets/documents/antibody-test.pdf" aria-label="View: Laboratory report"><img src="assets/images/documents/antibody-test.png" alt="First page: Laboratory report" loading="lazy"><span>Enlarge document ↗</span></button><h3>Laboratory report</h3><small>Anti-AAVrh74 result: non-reactive.</small><button class="btn btn-light btn-small" data-doc-title="Laboratory report" data-doc-file="assets/documents/antibody-test.pdf">View PDF</button><a class="doc-download" href="assets/documents/antibody-test.pdf" target="_blank" rel="noopener noreferrer">Open separately ↗</a></article><article class="doc-card"><button class="doc-preview" data-doc-title="Hospital letter" data-doc-file="assets/documents/eligibility-letter.pdf" aria-label="View: Hospital letter"><img src="assets/images/documents/eligibility-letter.png" alt="First page: Hospital letter" loading="lazy"><span>Enlarge document ↗</span></button><h3>Hospital letter</h3><small>Therapy eligibility assessment dated 24 Aug 2026.</small><button class="btn btn-light btn-small" data-doc-title="Hospital letter" data-doc-file="assets/documents/eligibility-letter.pdf">View PDF</button><a class="doc-download" href="assets/documents/eligibility-letter.pdf" target="_blank" rel="noopener noreferrer">Open separately ↗</a></article><article class="doc-card"><button class="doc-preview" data-doc-title="Preliminary invoice" data-doc-file="assets/documents/clinic-invoice.pdf" aria-label="View: Preliminary invoice"><img src="assets/images/documents/clinic-invoice.png" alt="First page: Preliminary invoice" loading="lazy"><span>Enlarge document ↗</span></button><h3>Preliminary invoice</h3><small>Treatment package cost and details dated 24 Aug 2026.</small><button class="btn btn-light btn-small" data-doc-title="Preliminary invoice" data-doc-file="assets/documents/clinic-invoice.pdf">View PDF</button><a class="doc-download" href="assets/documents/clinic-invoice.pdf" target="_blank" rel="noopener noreferrer">Open separately ↗</a></article><article class="doc-card"><button class="doc-preview" data-doc-title="Genetic report" data-doc-file="assets/documents/genetic-test.pdf" aria-label="View: Genetic report"><img src="assets/images/documents/genetic-test.png" alt="First page: Genetic report" loading="lazy"><span>Enlarge document ↗</span></button><h3>Genetic report</h3><small>LeoGene molecular genetic report dated 22 Sep 2025.</small><button class="btn btn-light btn-small" data-doc-title="Genetic report" data-doc-file="assets/documents/genetic-test.pdf">View PDF</button><a class="doc-download" href="assets/documents/genetic-test.pdf" target="_blank" rel="noopener noreferrer">Open separately ↗</a></article><article class="doc-card"><button class="doc-preview" data-doc-title="Blood test results" data-doc-file="assets/documents/blood-tests.pdf" aria-label="View: Blood test results"><img src="assets/images/documents/blood-tests.png" alt="First page: Blood test results" loading="lazy"><span>Enlarge document ↗</span></button><h3>Blood test results</h3><small>Esculab laboratory tests dated 18 Sep 2025.</small><button class="btn btn-light btn-small" data-doc-title="Blood test results" data-doc-file="assets/documents/blood-tests.pdf">View PDF</button><a class="doc-download" href="assets/documents/blood-tests.pdf" target="_blank" rel="noopener noreferrer">Open separately ↗</a></article><article class="doc-card"><button class="doc-preview" data-doc-title="Medical assessment" data-doc-file="assets/documents/medical-conclusion.pdf" aria-label="View: Medical assessment"><img src="assets/images/documents/medical-conclusion.png" alt="First page: Medical assessment" loading="lazy"><span>Enlarge document ↗</span></button><h3>Medical assessment</h3><small>Medical assessment for a child with a disability · 2 pages.</small><button class="btn btn-light btn-small" data-doc-title="Medical assessment" data-doc-file="assets/documents/medical-conclusion.pdf">View PDF</button><a class="doc-download" href="assets/documents/medical-conclusion.pdf" target="_blank" rel="noopener noreferrer">Open separately ↗</a></article></div></div></div></section>
+
+    <section class="support-section" id="payments"><div class="wrap"><div class="section-head"><div><span class="section-kicker">Support Denys</span><h2 class="section-title">Choose a donation method</h2></div><p class="section-sub">Open a Ukrainian fundraising service or copy the bank details for a transfer. Thank you for every contribution.</p></div><div class="payments-grid"><article class="pay-card featured"><div class="payment-heading"><span class="tag">Treatment fundraiser</span><h3>Monobank</h3><div class="pay-value">4874 1000 3373 8637</div></div><img class="qr-image" src="assets/images/monobank-qr.jpg" alt="Monobank fundraising QR code" loading="lazy"><div class="pay-actions"><a class="btn btn-dark btn-small" href="https://send.monobank.ua/jar/4YFqqqE4c4" target="_blank" rel="noopener noreferrer">Donate via Monobank</a><button class="btn btn-light btn-small" data-copy="4874100033738637">Copy</button></div></article>
+<article class="pay-card"><div class="payment-heading"><span class="tag">Treatment fundraiser</span><h3>Privat24</h3><div class="pay-value">5168 7521 6774 3049</div></div><img class="qr-image" src="assets/images/privat-envelope-qr.jpg" alt="Privat24 fundraiser QR code" loading="lazy"><div class="pay-actions"><a class="btn btn-dark btn-small" href="https://www.privat24.ua/send/k3v7q" target="_blank" rel="noopener noreferrer">Donate via Privat24</a><button class="btn btn-light btn-small" data-copy="5168752167743049">Copy</button></div></article>
+<article class="pay-card" id="foundation-payment"><div class="payment-heading"><span class="tag">Charity foundation · UAH</span><h3>Bank transfer</h3><div class="pay-value">Charitable donation</div></div><img class="qr-image" src="assets/images/foundation-qr.png" alt="QR code for a foundation transfer through Privat24" loading="lazy"><div class="foundation-details"><div class="pay-value">БО «БФ «ВРЯТУЙМО ДЕНИСИКА РАЗОМ»</div><p>Charity Foundation “SAVE DENYS TOGETHER”<br>Registration No. 46414577 · PRIVATBANK</p><div class="pay-value">UA393052990000026008045522979</div></div><div class="pay-actions"><button class="btn btn-light btn-small" data-copy="UA393052990000026008045522979">Copy</button></div></article>
+<article class="pay-card" id="paypal-payment"><div class="payment-heading"><span class="tag">Donate via PayPal</span><h3>PayPal</h3><div class="pay-value">mariashelenko7@gmail.com</div></div><p>Copy the account email and enter it as the recipient in PayPal.</p><div class="pay-actions"><button class="btn btn-dark btn-small" data-copy="mariashelenko7@gmail.com">Copy account</button><a class="btn btn-light btn-small" href="https://www.paypal.com/" target="_blank" rel="noopener noreferrer">Open PayPal</a></div></article>
+<article class="pay-card" id="swift-payment" style="grid-column:1/-1"><span class="tag">International transfer</span><h3>SWIFT · foundation bank details</h3><div class="pay-value">БО «БФ «ВРЯТУЙМО ДЕНИСИКА РАЗОМ»<br>IBAN: UA783052990000026002005520166<br>SWIFT: PBANUA2X</div><p>JSC CB PRIVATBANK, 1D HRUSHEVSKOHO STR., KYIV, 01001, UKRAINE</p><details><summary>Full details and correspondent banks</summary><p>Beneficiary address: 75A Hnata Khotkevycha St., Building 2, Apt. 90, Ivano-Frankivsk, 76000, Ukraine.</p><p>JP Morgan Chase Bank, New York, USA — account 001-1-000080; SWIFT CHASUS33.<br>The Bank of New York Mellon, New York, USA — account 890-0085-754; SWIFT IRVTUS3N.<br>Citibank N.A., New York, USA — account 36445343; SWIFT CITIUS33.</p></details><div class="pay-actions"><button class="btn btn-light btn-small" data-copy="БО «БФ «ВРЯТУЙМО ДЕНИСИКА РАЗОМ»; IBAN UA783052990000026002005520166; SWIFT PBANUA2X; JSC CB PRIVATBANK">Copy</button></div></article></div></div></section>
+
+    <section id="share">
+      <div class="wrap">
+        <div class="share-box reveal">
+          <div><h2>Unable to donate?</h2><p>Share this page. One post can reach someone who may help cover an important part of the treatment cost.</p></div>
+          <div class="share-actions">
+            <button class="btn btn-light btn-small" data-share="telegram">Telegram</button>
+            <button class="btn btn-light btn-small" data-share="facebook">Facebook</button>
+            <button class="btn btn-light btn-small" data-share="whatsapp">WhatsApp</button>
+            <button class="btn btn-light btn-small" data-share="viber">Viber</button>
+            <button class="btn btn-dark btn-small" data-copy-link>Copy link</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact-card reveal">
+          <div><span class="section-kicker" style="color:#f3a487">Contact</span><h2>Family contacts</h2><p>Mariia Shelenko · Denys’s mother. Her official social media pages.</p></div>
+          <div class="contact-links">
+            <a class="contact-link" href="https://www.instagram.com/shelenkomaria?srtk=OW5iN2kxMXBmeGdw" target="_blank" rel="noopener noreferrer" aria-label="Mariia Shelenko’s official Instagram page">
+              <span class="social-mark">IG</span><span class="social-copy"><b>Instagram</b><small>@shelenkomaria · official page</small></span><span class="social-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="contact-link" href="https://www.facebook.com/share/1BAibbJGco/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Mariia Shelenko’s official Facebook page">
+              <span class="social-mark">f</span><span class="social-copy"><b>Facebook</b><small>Mariia Shelenko · official page</small></span><span class="social-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner"><span>© Help Denys</span><span>Thank you to everyone who cares and supports the family.</span></div>
+  </footer>
+
+  <div class="floating-help"><button class="btn btn-primary" data-open="helpModal">Donate now</button></div>
+
+  <div class="modal-backdrop" id="helpModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+      <div class="modal-head"><div><h2 id="helpTitle">Help Denys</h2><p>Choose a convenient donation method.</p></div><button class="close" data-close aria-label="Close">×</button></div>
+<div class="modal-methods"><div class="modal-method"><div><small>PayPal · recipient account</small><b>mariashelenko7@gmail.com</b></div><div><a class="btn btn-primary btn-small" href="https://www.paypal.com/" target="_blank" rel="noopener noreferrer">Open PayPal</a><button class="btn btn-light btn-small" data-copy="mariashelenko7@gmail.com">Copy</button></div></div><div class="modal-method"><div><small>Monobank</small><b>4874100033738637</b></div><div><a class="btn btn-primary btn-small" href="https://send.monobank.ua/jar/4YFqqqE4c4" target="_blank" rel="noopener noreferrer">Donate</a><button class="btn btn-light btn-small" data-copy="4874100033738637">Copy</button></div></div><div class="modal-method"><div><small>Privat24</small><b>5168752167743049</b></div><div><a class="btn btn-primary btn-small" href="https://www.privat24.ua/send/k3v7q" target="_blank" rel="noopener noreferrer">Donate</a><button class="btn btn-light btn-small" data-copy="5168752167743049">Copy</button></div></div><div class="modal-method"><div><small>Foundation account · UAH</small><b>UA393052990000026008045522979</b></div><div><button class="btn btn-light btn-small" data-copy="UA393052990000026008045522979">Copy</button></div></div><div class="modal-method"><div><small>SWIFT · PBANUA2X</small><b>UA783052990000026002005520166</b></div><div><button class="btn btn-light btn-small" data-copy="UA783052990000026002005520166">Copy</button></div></div></div>
+    </div>
+  </div>
+
+<div class="modal-backdrop" id="documentModal" aria-hidden="true"><div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="docTitle"><div class="modal-head"><div><h2 id="docTitle">Document</h2><a id="docExternal" target="_blank" rel="noopener noreferrer">Open PDF in a new tab ↗</a></div><button class="close" data-close aria-label="Close">×</button></div><iframe class="doc-frame" id="docFrame" title="Document preview"></iframe></div></div>
+  <div class="modal-backdrop" id="videoModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="videoTitle">
+      <div class="modal-head"><div><h2 id="videoTitle">Video</h2><p>A video player will appear here once the links are available.</p></div><button class="close" data-close aria-label="Close">×</button></div>
+      <div class="doc-large" style="min-height:330px">YouTube / Facebook / Instagram video placeholder</div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="viberModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="viberTitle">
+      <div class="modal-head"><div><h2 id="viberTitle">Share via Viber</h2><p>If Viber Desktop did not open, use your phone.</p></div><button class="close" data-close aria-label="Close">×</button></div>
+      <div class="viber-fallback">
+        <img class="viber-qr" id="viberQr" alt="QR code for sharing this page through Viber">
+        <p>Scan the QR code with your phone’s camera to open Viber with a prepared message and a link to this page.</p>
+        <div class="viber-status" id="viberStatus" aria-live="polite"></div>
+        <div class="pay-actions"><button class="btn btn-dark btn-small" id="viberCopyLink" data-copy="">Copy link</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Copied</div>
+
+  <script src="assets/vendor/qrcode-generator/qrcode.js"></script>
+  <script>
+    const backdrops=[...document.querySelectorAll('.modal-backdrop')];
+    const toast=document.getElementById('toast');
+    const docFrame=document.getElementById('docFrame');
+    let toastTimer; let previousFocus;
+
+    function openModal(id){
+      const el=document.getElementById(id);
+      if(!el)return;
+      previousFocus=document.activeElement;
+      el.classList.add('open');
+      el.querySelector('[data-close]')?.focus();
+      el.setAttribute('aria-hidden','false');
+      document.body.classList.add('modal-open');
+    }
+
+    function closeModal(el){
+      if(!el)return;
+      el.classList.remove('open');
+      previousFocus?.focus();
+      el.setAttribute('aria-hidden','true');
+      if(el.id==='documentModal') docFrame.src='';
+      if(!document.querySelector('.modal-backdrop.open')) document.body.classList.remove('modal-open');
+    }
+
+    document.querySelectorAll('[data-open]').forEach(btn=>btn.addEventListener('click',()=>openModal(btn.dataset.open)));
+    document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>closeModal(btn.closest('.modal-backdrop'))));
+    backdrops.forEach(bg=>bg.addEventListener('click',e=>{if(e.target===bg)closeModal(bg)}));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')backdrops.filter(x=>x.classList.contains('open')).forEach(closeModal)});
+
+    function showToast(text='Copied'){
+      clearTimeout(toastTimer);
+      toast.textContent=text;
+      toast.classList.add('show');
+      toastTimer=setTimeout(()=>toast.classList.remove('show'),1800);
+    }
+
+    async function copyText(text){
+      try{await navigator.clipboard.writeText(text);showToast('Copied')}catch{const field=document.createElement('textarea');field.value=text;field.style.position='fixed';field.style.opacity='0';document.body.append(field);field.select();const ok=document.execCommand('copy');field.remove();showToast(ok?'Copied':'Could not copy')}
+    }
+
+    document.querySelectorAll('[data-copy]').forEach(btn=>btn.addEventListener('click',()=>copyText(btn.dataset.copy)));
+    document.querySelector('[data-copy-link]')?.addEventListener('click',()=>copyText(location.href));
+
+    document.querySelectorAll('[data-doc-file]').forEach(el=>el.addEventListener('click',()=>{
+      document.getElementById('docTitle').textContent=el.dataset.docTitle || 'Document';
+      docFrame.src=el.dataset.docFile;
+      document.getElementById('docExternal').href=el.dataset.docFile;
+      openModal('documentModal');
+    }));
+
+    document.querySelectorAll('[data-video]').forEach(el=>el.addEventListener('click',()=>{
+      document.getElementById('videoTitle').textContent=el.dataset.video;
+      openModal('videoModal');
+    }));
+
+    function getSharePageUrl(){
+      const pageUrl=new URL(location.href);
+      pageUrl.hash='';
+      return pageUrl.href;
+    }
+
+    function getViberShareUrl(){
+      const message=`Help Denys Shelenko receive Elevidys gene therapy\n${getSharePageUrl()}`;
+      return `viber://forward?text=${encodeURIComponent(message)}`;
+    }
+
+    function showViberFallback(){
+      const pageUrl=getSharePageUrl();
+      const viberUrl=getViberShareUrl();
+      const qrImage=document.getElementById('viberQr');
+      const status=document.getElementById('viberStatus');
+      document.getElementById('viberCopyLink').dataset.copy=pageUrl;
+
+      try{
+        const qrCode=qrcode(0,'M');
+        qrCode.addData(viberUrl);
+        qrCode.make();
+        qrImage.src=qrCode.createDataURL(7,14);
+        qrImage.hidden=false;
+        status.textContent=location.protocol==='file:'?'In local preview, the QR code contains a local file address. Once published, it will automatically use the website address.':'Point your phone’s camera at the QR code.';
+      }catch{
+        qrImage.hidden=true;
+        status.textContent='Could not create the QR code. Please copy the link using the button below.';
+      }
+      openModal('viberModal');
+    }
+
+    function shareViaViber(){
+      const viberUrl=getViberShareUrl();
+      const isMobile=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+      if(isMobile){location.href=viberUrl;return}
+
+      let appOpened=false;
+      const onVisibilityChange=()=>{if(document.hidden)appOpened=true};
+      const onWindowBlur=()=>{appOpened=true};
+      document.addEventListener('visibilitychange',onVisibilityChange);
+      window.addEventListener('blur',onWindowBlur,{once:true});
+      location.href=viberUrl;
+      setTimeout(()=>{
+        document.removeEventListener('visibilitychange',onVisibilityChange);
+        window.removeEventListener('blur',onWindowBlur);
+        if(!appOpened && !document.hidden)showViberFallback();
+      },1600);
+    }
+
+    document.querySelectorAll('[data-share]').forEach(btn=>btn.addEventListener('click',()=>{
+      if(btn.dataset.share==='viber'){shareViaViber();return}
+      const u=encodeURIComponent(getSharePageUrl());
+      const t=encodeURIComponent('Help Denys Shelenko receive Elevidys gene therapy');
+      const urls={
+        telegram:`https://t.me/share/url?url=${u}&text=${t}`,
+        facebook:`https://www.facebook.com/sharer/sharer.php?u=${u}`,
+        whatsapp:`https://wa.me/?text=${t}%20${u}`
+      };
+      window.open(urls[btn.dataset.share],'_blank','noopener,noreferrer');
+    }));
+
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+      if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}
+    }),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+  </script>
+</body>
+</html>
