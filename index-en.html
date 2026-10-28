@@ -151,13 +151,17 @@
     .price-panel .price{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;letter-spacing:-.045em;line-height:1.05;margin:6px 0}
     .price-panel .approx{color:var(--muted);margin-bottom:18px}
 
-    .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .video-card{border-radius:24px;overflow:hidden;background:#262722;color:#fff;min-height:260px;position:relative;padding:22px;display:flex;align-items:flex-end;cursor:pointer;border:0;text-align:left}
+    .video-grid{display:grid;grid-template-columns:1fr;gap:16px}
+    .video-card{width:100%;aspect-ratio:16/9;border-radius:24px;overflow:hidden;background:#262722;color:#fff;min-height:0;position:relative;padding:28px;display:flex;align-items:flex-end;cursor:pointer;border:0;text-align:left;text-decoration:none;isolation:isolate}
+    .video-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(20,20,18,.04) 28%,rgba(20,20,18,.82) 100%),var(--video-image) center/cover no-repeat;transition:transform .35s ease}
+    .video-card:hover::after{transform:scale(1.025)}
     .video-card::before{content:"▶";position:absolute;top:20px;right:20px;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.92);color:#222;font-size:.9rem}
     .video-card:nth-child(2){background:linear-gradient(145deg,#bd9b83,#634e42)}
     .video-card:nth-child(3){background:linear-gradient(145deg,#7a927e,#334539)}
     .video-card b{font-size:1.15rem;line-height:1.2}
     .video-card span{display:block;color:rgba(255,255,255,.68);font-size:.86rem;margin-top:5px}
+    .video-frame{width:100%;aspect-ratio:16/9;margin-top:20px;border:0;border-radius:20px;background:#171714;display:block}
+    .video-external{display:inline-flex;margin-top:14px;color:var(--muted);font-weight:800}
 
     .docs-group{margin-top:28px}
     .docs-group h3{font-size:1.05rem;margin:0 0 12px}
@@ -258,7 +262,7 @@
     @media (max-width:900px){
       .hero-grid,.support-shell,.story-grid,.treatment-card{grid-template-columns:1fr}
       .portrait{min-height:520px}.story-aside{position:static}.story-mark{font-size:5rem}
-      .video-grid,.docs-grid,.payments-grid{grid-template-columns:repeat(2,1fr)}
+      .docs-grid,.payments-grid{grid-template-columns:repeat(2,1fr)}
       .share-box,.contact-card{grid-template-columns:1fr}.share-actions,.contact-links{justify-content:flex-start}
     }
     @media (max-width:620px){
@@ -269,8 +273,8 @@
       section{padding:40px 0}
       .support-shell{padding:12px}.support-intro{padding:20px 14px}.bank-feature{padding:21px}
       .poster{min-height:300px;padding:28px}.treatment-card,.share-box,.contact-card{padding:26px}
-      .video-grid,.docs-grid,.payments-grid{grid-template-columns:1fr}
-      .video-card{min-height:220px}.doc-card{min-height:230px}.goal-inline{grid-template-columns:1fr;gap:6px}
+      .docs-grid,.payments-grid{grid-template-columns:1fr}
+      .video-card{min-height:0}.doc-card{min-height:230px}.goal-inline{grid-template-columns:1fr;gap:6px}
       .modal{padding:20px;border-radius:24px}.modal-method{grid-template-columns:1fr}.modal-method .btn{justify-self:start}
       .floating-help{left:12px;right:12px;bottom:12px}.floating-help .btn{width:100%}
       footer{padding-bottom:88px}
@@ -427,12 +431,10 @@
         <div class="section-head reveal">
           <span class="section-kicker">Family videos</span>
           <h2 class="section-title">Hear the story from Denys’s family</h2>
-          <p class="section-sub">Messages from the family and supporters will be added soon.</p>
+          <p class="section-sub">Hear a personal message from Denys’s mother about his story and the fundraiser for his treatment.</p>
         </div>
         <div class="video-grid">
-          <button class="video-card reveal" data-video="A message from Denys’s mother"><span><b>A message from Denys’s mother</b><span>A link to the video will be added soon</span></span></button>
-          <button class="video-card reveal" data-video="The family’s story"><span><b>The family’s story</b><span>A family message or news feature</span></span></button>
-          <button class="video-card reveal" data-video="Supporting the fundraiser"><span><b>Supporting the fundraiser</b><span>Messages from friends, doctors, and the community</span></span></button>
+          <button class="video-card reveal" style="--video-image:url('https://i.ytimg.com/vi/1CNBi-Yrlmo/maxresdefault.jpg')" data-video="A message from Denys’s mother" data-video-id="1CNBi-Yrlmo" aria-label="Watch a message from Denys’s mother"><span><b>A message from Denys’s mother</b><span>Click to watch the video</span></span></button>
         </div>
       </div>
     </section>
@@ -492,12 +494,12 @@
 
 <div class="modal-backdrop" id="documentModal" aria-hidden="true"><div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="docTitle"><div class="modal-head"><div><h2 id="docTitle">Document</h2><a id="docExternal" target="_blank" rel="noopener noreferrer">Open PDF in a new tab ↗</a></div><button class="close" data-close aria-label="Close">×</button></div><iframe class="doc-frame" id="docFrame" title="Document preview"></iframe></div></div>
   <div class="modal-backdrop" id="videoModal" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="videoTitle">
-      <div class="modal-head"><div><h2 id="videoTitle">Video</h2><p>A video player will appear here once the links are available.</p></div><button class="close" data-close aria-label="Close">×</button></div>
-      <div class="doc-large" style="min-height:330px">YouTube / Facebook / Instagram video placeholder</div>
+    <div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="videoTitle">
+      <div class="modal-head"><div><h2 id="videoTitle">Video message</h2><p>A personal message from Denys’s mother.</p></div><button class="close" data-close aria-label="Close">×</button></div>
+      <iframe class="video-frame" id="videoFrame" title="A video message from Denys’s mother" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <a class="video-external" id="videoExternal" href="https://youtu.be/1CNBi-Yrlmo" target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a>
     </div>
   </div>
-
   <div class="modal-backdrop" id="viberModal" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="viberTitle">
       <div class="modal-head"><div><h2 id="viberTitle">Share via Viber</h2><p>If Viber Desktop did not open, use your phone.</p></div><button class="close" data-close aria-label="Close">×</button></div>
@@ -535,6 +537,7 @@
       previousFocus?.focus();
       el.setAttribute('aria-hidden','true');
       if(el.id==='documentModal') docFrame.src='';
+      if(el.id==='videoModal') document.getElementById('videoFrame').src='';
       if(!document.querySelector('.modal-backdrop.open')) document.body.classList.remove('modal-open');
     }
 
@@ -566,6 +569,9 @@
 
     document.querySelectorAll('[data-video]').forEach(el=>el.addEventListener('click',()=>{
       document.getElementById('videoTitle').textContent=el.dataset.video;
+      const videoId=el.dataset.videoId;
+      document.getElementById('videoFrame').src=`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+      document.getElementById('videoExternal').href=`https://youtu.be/${videoId}`;
       openModal('videoModal');
     }));
 
