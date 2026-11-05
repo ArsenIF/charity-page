@@ -452,8 +452,8 @@
           <p class="section-sub">Послухайте особисте звернення мами Денисика про його історію та збір на лікування.</p>
         </div>
         <div class="video-grid">
-          <button class="video-card reveal" style="--video-image:url('https://i.ytimg.com/vi/1CNBi-Yrlmo/maxresdefault.jpg')" data-video="Звернення мами Денисика" data-video-id="1CNBi-Yrlmo" data-video-format="short" aria-label="Переглянути відеозвернення мами Денисика"><span><b>Звернення мами Денисика</b><span>Натисніть, щоб переглянути відео</span></span></button>
-          <button class="video-card reveal" style="--video-image:url('https://i.ytimg.com/vi/DsigcSYWbjc/maxresdefault.jpg')" data-video="Звернення Руслана Марцінківа про збір коштів для Денисика" data-video-id="DsigcSYWbjc" data-video-format="short" aria-label="Переглянути звернення Руслана Марцінківа про збір коштів для Денисика"><span><b>Звернення Руслана Марцінківа про збір коштів для Денисика</b><span>Натисніть, щоб переглянути відео</span></span></button>
+          <button class="video-card reveal" style="--video-image:url('https://i.ytimg.com/vi/1CNBi-Yrlmo/maxresdefault.jpg')" data-video="Звернення мами Денисика" data-video-description="Особисте звернення мами Денисика." data-video-id="1CNBi-Yrlmo" data-video-format="short" aria-label="Переглянути відеозвернення мами Денисика"><span><b>Звернення мами Денисика</b><span>Натисніть, щоб переглянути відео</span></span></button>
+          <button class="video-card reveal" style="--video-image:url('https://i.ytimg.com/vi/DsigcSYWbjc/maxresdefault.jpg')" data-video="Звернення Руслана Марцінківа про збір коштів для Денисика" data-video-description="Звернення мера Івано-Франківська." data-video-id="DsigcSYWbjc" data-video-format="short" aria-label="Переглянути звернення Руслана Марцінківа про збір коштів для Денисика"><span><b>Звернення Руслана Марцінківа про збір коштів для Денисика</b><span>Натисніть, щоб переглянути відео</span></span></button>
         </div>
       </div>
     </section>
@@ -519,7 +519,7 @@
 <div class="modal-backdrop" id="documentModal" aria-hidden="true"><div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="docTitle"><div class="modal-head"><div><h2 id="docTitle">Документ</h2><a id="docExternal" target="_blank" rel="noopener noreferrer">Відкрити PDF в окремій вкладці ↗</a></div><button class="close" data-close aria-label="Закрити">×</button></div><iframe class="doc-frame" id="docFrame" title="Перегляд документа"></iframe></div></div>
   <div class="modal-backdrop" id="videoModal" aria-hidden="true">
     <div class="modal modal-wide video-modal" role="dialog" aria-modal="true" aria-labelledby="videoTitle">
-      <div class="modal-head"><div><h2 id="videoTitle">Відеозвернення</h2><p>Особисте звернення мами Денисика.</p></div><button class="close" data-close aria-label="Закрити">×</button></div>
+      <div class="modal-head"><div><h2 id="videoTitle">Відеозвернення</h2><p id="videoDescription">Особисте звернення мами Денисика.</p></div><button class="close" data-close aria-label="Закрити">×</button></div>
       <iframe class="video-frame" id="videoFrame" title="Відеозвернення мами Денисика" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       <a class="video-external" id="videoExternal" href="https://youtu.be/1CNBi-Yrlmo" target="_blank" rel="noopener noreferrer">Відкрити відео на YouTube ↗</a>
     </div>
@@ -593,6 +593,7 @@
 
     document.querySelectorAll('[data-video]').forEach(el=>el.addEventListener('click',()=>{
       document.getElementById('videoTitle').textContent=el.dataset.video;
+      document.getElementById('videoDescription').textContent=el.dataset.videoDescription || '';
       const videoId=el.dataset.videoId;
       document.querySelector('.video-modal')?.classList.toggle('is-short',el.dataset.videoFormat==='short');
       document.getElementById('videoFrame').src=`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
