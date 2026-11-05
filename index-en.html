@@ -452,8 +452,8 @@
           <p class="section-sub">Hear a personal message from Denys’s mother about his story and the fundraiser for his treatment.</p>
         </div>
         <div class="video-grid">
-          <button class="video-card reveal" style="--video-image:url('https://i.ytimg.com/vi/1CNBi-Yrlmo/maxresdefault.jpg')" data-video="A message from Denys’s mother" data-video-id="1CNBi-Yrlmo" data-video-format="short" aria-label="Watch a message from Denys’s mother"><span><b>A message from Denys’s mother</b><span>Click to watch the video</span></span></button>
-          <button class="video-card reveal" style="--video-image:url('https://i.ytimg.com/vi/DsigcSYWbjc/maxresdefault.jpg')" data-video="Ruslan Martsinkiv’s appeal for Denys’s fundraiser" data-video-id="DsigcSYWbjc" data-video-format="short" aria-label="Watch Ruslan Martsinkiv’s appeal for Denys’s fundraiser"><span><b>Ruslan Martsinkiv’s appeal for Denys’s fundraiser</b><span>Click to watch the video</span></span></button>
+          <button class="video-card reveal" style="--video-image:url('https://i.ytimg.com/vi/1CNBi-Yrlmo/maxresdefault.jpg')" data-video="A message from Denys’s mother" data-video-description="A personal message from Denys’s mother." data-video-id="1CNBi-Yrlmo" data-video-format="short" aria-label="Watch a message from Denys’s mother"><span><b>A message from Denys’s mother</b><span>Click to watch the video</span></span></button>
+          <button class="video-card reveal" style="--video-image:url('https://i.ytimg.com/vi/DsigcSYWbjc/maxresdefault.jpg')" data-video="Ruslan Martsinkiv’s appeal for Denys’s fundraiser" data-video-description="A message from the Mayor of Ivano-Frankivsk." data-video-id="DsigcSYWbjc" data-video-format="short" aria-label="Watch Ruslan Martsinkiv’s appeal for Denys’s fundraiser"><span><b>Ruslan Martsinkiv’s appeal for Denys’s fundraiser</b><span>Click to watch the video</span></span></button>
         </div>
       </div>
     </section>
@@ -519,7 +519,7 @@
 <div class="modal-backdrop" id="documentModal" aria-hidden="true"><div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="docTitle"><div class="modal-head"><div><h2 id="docTitle">Document</h2><a id="docExternal" target="_blank" rel="noopener noreferrer">Open PDF in a new tab ↗</a></div><button class="close" data-close aria-label="Close">×</button></div><iframe class="doc-frame" id="docFrame" title="Document preview"></iframe></div></div>
   <div class="modal-backdrop" id="videoModal" aria-hidden="true">
     <div class="modal modal-wide video-modal" role="dialog" aria-modal="true" aria-labelledby="videoTitle">
-      <div class="modal-head"><div><h2 id="videoTitle">Video message</h2><p>A personal message from Denys’s mother.</p></div><button class="close" data-close aria-label="Close">×</button></div>
+      <div class="modal-head"><div><h2 id="videoTitle">Video message</h2><p id="videoDescription">A personal message from Denys’s mother.</p></div><button class="close" data-close aria-label="Close">×</button></div>
       <iframe class="video-frame" id="videoFrame" title="A video message from Denys’s mother" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       <a class="video-external" id="videoExternal" href="https://youtu.be/1CNBi-Yrlmo" target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a>
     </div>
@@ -593,6 +593,7 @@
 
     document.querySelectorAll('[data-video]').forEach(el=>el.addEventListener('click',()=>{
       document.getElementById('videoTitle').textContent=el.dataset.video;
+      document.getElementById('videoDescription').textContent=el.dataset.videoDescription || '';
       const videoId=el.dataset.videoId;
       document.querySelector('.video-modal')?.classList.toggle('is-short',el.dataset.videoFormat==='short');
       document.getElementById('videoFrame').src=`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
